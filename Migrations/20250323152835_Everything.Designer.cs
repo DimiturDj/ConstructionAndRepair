@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace RepairAndConstruction.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250323123435_IntialCreate")]
-    partial class IntialCreate
+    [Migration("20250323152835_Everything")]
+    partial class Everything
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,28 @@ namespace RepairAndConstruction.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Booking", b =>
+            modelBuilder.Entity("RepairAndConstruction.Models.AppUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppUsers");
+                });
+
+            modelBuilder.Entity("RepairAndConstruction.Models.Booking", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -70,6 +91,10 @@ namespace RepairAndConstruction.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
@@ -104,7 +129,7 @@ namespace RepairAndConstruction.Migrations
                     b.ToTable("JobOffers");
                 });
 
-            modelBuilder.Entity("Review", b =>
+            modelBuilder.Entity("RepairAndConstruction.Models.Review", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -133,7 +158,7 @@ namespace RepairAndConstruction.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("Worker", b =>
+            modelBuilder.Entity("RepairAndConstruction.Models.Worker", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,7 +186,7 @@ namespace RepairAndConstruction.Migrations
                     b.ToTable("Workers");
                 });
 
-            modelBuilder.Entity("Booking", b =>
+            modelBuilder.Entity("RepairAndConstruction.Models.Booking", b =>
                 {
                     b.HasOne("RepairAndConstruction.Models.Customer", "Customer")
                         .WithMany("Bookings")
@@ -182,7 +207,7 @@ namespace RepairAndConstruction.Migrations
 
             modelBuilder.Entity("RepairAndConstruction.Models.JobOffer", b =>
                 {
-                    b.HasOne("Worker", "Worker")
+                    b.HasOne("RepairAndConstruction.Models.Worker", "Worker")
                         .WithMany("JobOffers")
                         .HasForeignKey("WorkerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -191,9 +216,9 @@ namespace RepairAndConstruction.Migrations
                     b.Navigation("Worker");
                 });
 
-            modelBuilder.Entity("Review", b =>
+            modelBuilder.Entity("RepairAndConstruction.Models.Review", b =>
                 {
-                    b.HasOne("Worker", "Worker")
+                    b.HasOne("RepairAndConstruction.Models.Worker", "Worker")
                         .WithMany("Reviews")
                         .HasForeignKey("WorkerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -207,7 +232,7 @@ namespace RepairAndConstruction.Migrations
                     b.Navigation("Bookings");
                 });
 
-            modelBuilder.Entity("Worker", b =>
+            modelBuilder.Entity("RepairAndConstruction.Models.Worker", b =>
                 {
                     b.Navigation("JobOffers");
 

@@ -4,36 +4,23 @@
     ViewData["Title"] = "Workers";
 }
 
-<h1>Workers</h1>
+<h1 class="text-center text-primary mb-4">Our Workers</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Add New Worker</a>
-</p>
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Full Name</th>
-            <th>Profession</th>
-            <th>Location</th>
-            <th>Rating</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var worker in Model)
-        {
-            <tr>
-                <td>@worker.FullName</td>
-                <td>@worker.Profession</td>
-                <td>@worker.Location</td>
-                <td>@worker.Rating</td>
-                <td>
+<div class="row">
+    @foreach (var worker in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">@worker.FullName</h5>
+                    <p class="card-text">@worker.Profession</p>
+                    <p class="text-muted">Location: @worker.Location</p>
+                    <p class="text-success">Rating: @worker.Rating</p>
                     <a asp-action="Details" asp-route-id="@worker.Id" class="btn btn-info btn-sm">Details</a>
                     <a asp-action="Edit" asp-route-id="@worker.Id" class="btn btn-warning btn-sm">Edit</a>
                     <a asp-action="Delete" asp-route-id="@worker.Id" class="btn btn-danger btn-sm">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                </div>
+            </div>
+        </div>
+    }
+</div>

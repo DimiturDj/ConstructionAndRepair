@@ -70,6 +70,24 @@ namespace RepairAndConstruction.Migrations
                     b.HasIndex("JobOfferId");
 
                     b.ToTable("Bookings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BookingDate = new DateTime(2025, 3, 23, 17, 34, 42, 732, DateTimeKind.Local).AddTicks(28),
+                            CustomerId = 1,
+                            JobOfferId = 1,
+                            Status = "Confirmed"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BookingDate = new DateTime(2025, 3, 24, 17, 34, 42, 732, DateTimeKind.Local).AddTicks(69),
+                            CustomerId = 2,
+                            JobOfferId = 2,
+                            Status = "Pending"
+                        });
                 });
 
             modelBuilder.Entity("RepairAndConstruction.Models.Customer", b =>
@@ -88,9 +106,29 @@ namespace RepairAndConstruction.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "mark@email.com",
+                            FullName = "Mark Williams",
+                            Phone = "0888123456"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "sara@email.com",
+                            FullName = "Sara Miller",
+                            Phone = "0899123456"
+                        });
                 });
 
             modelBuilder.Entity("RepairAndConstruction.Models.JobOffer", b =>
@@ -120,6 +158,24 @@ namespace RepairAndConstruction.Migrations
                     b.HasIndex("WorkerId");
 
                     b.ToTable("JobOffers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Fixing leaks and pipes",
+                            Price = 100m,
+                            Title = "Plumbing Service",
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Installing new wiring",
+                            Price = 150m,
+                            Title = "Electrical Installation",
+                            WorkerId = 2
+                        });
                 });
 
             modelBuilder.Entity("RepairAndConstruction.Models.Review", b =>
@@ -149,6 +205,24 @@ namespace RepairAndConstruction.Migrations
                     b.HasIndex("WorkerId");
 
                     b.ToTable("Reviews");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Comment = "Excellent service!",
+                            Rating = 5,
+                            ReviewerName = "John",
+                            WorkerId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Comment = "Good work but could improve communication.",
+                            Rating = 4,
+                            ReviewerName = "Sara",
+                            WorkerId = 2
+                        });
                 });
 
             modelBuilder.Entity("RepairAndConstruction.Models.Worker", b =>
@@ -177,6 +251,32 @@ namespace RepairAndConstruction.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Workers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FullName = "John Doe",
+                            Location = "Sofia",
+                            Profession = "Plumber",
+                            Rating = 5.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FullName = "Jane Smith",
+                            Location = "Plovdiv",
+                            Profession = "Electrician",
+                            Rating = 4.0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FullName = "Mike Johnson",
+                            Location = "Varna",
+                            Profession = "Carpenter",
+                            Rating = 4.0
+                        });
                 });
 
             modelBuilder.Entity("RepairAndConstruction.Models.Booking", b =>

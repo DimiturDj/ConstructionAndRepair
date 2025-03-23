@@ -1,0 +1,46 @@
+﻿@model RepairAndConstruction.Models.Booking
+
+@{
+    ViewData["Title"] = "Create Booking";
+}
+
+<h1>Create Booking</h1>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="CustomerId" class="control-label">Customer</label>
+        <select asp-for="CustomerId" class="form-control" asp-items="ViewBag.CustomerId">
+            <option value="">-- Select Customer --</option>
+        </select>
+        <span asp-validation-for="CustomerId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="JobOfferId" class="control-label">Job Offer</label>
+        <select asp-for="JobOfferId" class="form-control" asp-items="ViewBag.JobOfferId">
+            <option value="">-- Select Job Offer --</option>
+        </select>
+        <span asp-validation-for="JobOfferId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BookingDate" class="control-label">Booking Date</label>
+        <input asp-for="BookingDate" class="form-control" type="date" />
+        <span asp-validation-for="BookingDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Status" class="control-label"></label>
+        <input asp-for="Status" class="form-control" />
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Create</button>
+    <a asp-action="Index" class="btn btn-secondary mt-2">Back</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

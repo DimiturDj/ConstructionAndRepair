@@ -1,0 +1,45 @@
+﻿@model IEnumerable<RepairAndConstruction.Models.Booking>
+
+@{
+    ViewData["Title"] = "Bookings";
+}
+
+<h1>Bookings</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New Booking</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Job Offer</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var booking in Model)
+        {
+            <tr>
+                <td>@booking.Customer?.FullName</td>
+                <td>
+                    @booking.JobOffer?.Title
+                    @if (booking.JobOffer?.Worker != null)
+                    {
+                        <span class="text-muted">(by @booking.JobOffer.Worker.FullName)</span>
+                    }
+                </td>
+                <td>@booking.BookingDate.ToString("yyyy-MM-dd")</td>
+                <td>@booking.Status</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@booking.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@booking.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@booking.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

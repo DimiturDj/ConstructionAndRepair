@@ -1,0 +1,39 @@
+﻿@model IEnumerable<RepairAndConstruction.Models.Worker>
+
+@{
+    ViewData["Title"] = "Workers";
+}
+
+<h1>Workers</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Add New Worker</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Profession</th>
+            <th>Location</th>
+            <th>Rating</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var worker in Model)
+        {
+            <tr>
+                <td>@worker.FullName</td>
+                <td>@worker.Profession</td>
+                <td>@worker.Location</td>
+                <td>@worker.Rating</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@worker.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@worker.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@worker.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

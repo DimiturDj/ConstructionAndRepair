@@ -35,3 +35,70 @@
     font-weight: 600;
     font-size: 1rem;
 }
+/* Custom styles for buttons */
+.btn-sm {
+    padding: 8px 15px;
+    font-size: 14px;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.table-responsive {
+    margin-top: 20px;
+}
+/* site.css */
+.available-job-offers {
+    color: #007bff; /* Blue color */
+}
+/* Ensure the footer is always at the bottom */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    margin-top: auto;
+}
+/* site.css */
+
+/* Make all h1 and h2 headings blue */
+h1, h2 {
+    color: #007bff; /* Blue color */
+}
+
+/* Make all anchor links (e.g., navigation links) also blue */
+a {
+    color: #007bff;
+}
+
+/* If you want other specific elements or body text to also follow the blue color */
+body {
+    color: #007bff; /* Blue for all text */
+}
+
+/* If you want a more specific class (e.g., for the title text) */
+.page-title {
+    color: #007bff;
+}
+.card-text, .card-title, .card-subtitle {
+    color: black !important;
+}

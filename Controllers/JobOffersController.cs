@@ -18,7 +18,7 @@ namespace RepairAndConstruction.Controllers
         public async Task<IActionResult> Index()
         {
             var jobOffers = await _context.JobOffers
-                .Include(j => j.Worker)
+                .Include(j => j.Worker) // Включваме работника за всяка оферта
                 .ToListAsync();
 
             return View(jobOffers);
@@ -30,7 +30,7 @@ namespace RepairAndConstruction.Controllers
             if (id == null) return NotFound();
 
             var jobOffer = await _context.JobOffers
-                .Include(j => j.Worker)
+                .Include(j => j.Worker) // Включваме работника за офертата
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (jobOffer == null) return NotFound();
@@ -52,11 +52,12 @@ namespace RepairAndConstruction.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(jobOffer);
+                _context.Add(jobOffer); // Добавяме новата оферта в базата
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)); // След успешно създаване пренасочваме към Index
             }
 
+            // Ако има грешка при попълване на формата, връщаме на същата форма
             ViewData["WorkerId"] = new SelectList(_context.Workers, "Id", "FullName", jobOffer.WorkerId);
             return View(jobOffer);
         }
@@ -69,6 +70,7 @@ namespace RepairAndConstruction.Controllers
             var jobOffer = await _context.JobOffers.FindAsync(id);
             if (jobOffer == null) return NotFound();
 
+            // Зареждаме работниците за избор в падащото меню
             ViewData["WorkerId"] = new SelectList(_context.Workers, "Id", "FullName", jobOffer.WorkerId);
             return View(jobOffer);
         }
@@ -84,18 +86,15 @@ namespace RepairAndConstruction.Controllers
             {
                 try
                 {
-                    _context.Update(jobOffer);
+                    _context.Update(jobOffer); // Обновяваме съществуващата оферта
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!JobOfferExists(jobOffer.Id))
-                        return NotFound();
-                    else
-                        throw;
+                    if (!JobOfferExists(jobOffer.Id)) return NotFound();
+                    else throw;
                 }
-
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)); // След успешно обновяване пренасочваме към Index
             }
 
             ViewData["WorkerId"] = new SelectList(_context.Workers, "Id", "FullName", jobOffer.WorkerId);
@@ -122,14 +121,14 @@ namespace RepairAndConstruction.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var jobOffer = await _context.JobOffers.FindAsync(id);
-            _context.JobOffers.Remove(jobOffer);
+            _context.JobOffers.Remove(jobOffer); // Премахваме офертата от базата
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index)); // След успешно изтриване пренасочваме към Index
         }
 
         private bool JobOfferExists(int id)
         {
-            return _context.JobOffers.Any(e => e.Id == id);
+            return _context.JobOffers.Any(e => e.Id == id); // Проверка дали офертата съществува
         }
     }
 }

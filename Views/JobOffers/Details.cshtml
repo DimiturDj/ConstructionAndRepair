@@ -4,28 +4,25 @@
     ViewData["Title"] = "Job Offer Details";
 }
 
-<h1>Job Offer Details</h1>
+<div class="container mt-5">
+    <h1 class="display-4 text-center">@Model.Title</h1>
 
-<div>
-    <h4>Job Offer</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">Title</dt>
-        <dd class="col-sm-10">@Model.Title</dd>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Description</h5>
+                    <p>@Model.Description</p>
 
-        <dt class="col-sm-2">Description</dt>
-        <dd class="col-sm-10">@Model.Description</dd>
+                    <h5 class="card-title">Price</h5>
+                    <p>@Model.Price лв</p>
 
-        <dt class="col-sm-2">Price</dt>
-        <dd class="col-sm-10">@Model.Price.ToString("C")</dd>
+                    <h5 class="card-title">Worker</h5>
+                    <p>@Model.Worker.FullName</p>
 
-        <dt class="col-sm-2">Worker</dt>
-        <dd class="col-sm-10">@Model.Worker?.FullName</dd>
-    </dl>
+                    <a asp-action="Index" class="btn btn-primary">Back to Job Offers</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-</div>
-

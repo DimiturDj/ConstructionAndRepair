@@ -111,8 +111,7 @@ cd ConstructionAndRepair
 ## 📸 Screenshots
 
 ### Homepage
-![Homepage](![image](https://github.com/user-attachments/assets/134de1ca-946f-47f5-95ee-a11b6a6b6a1f)
-)
+![Homepage](Roblox/HomePage.png)
 
 ### Available Job Offers
 ![Job Offers](Images/joboffers.png)
@@ -137,4 +136,3 @@ cd ConstructionAndRepair
 
 ### Contact Page
 ![Contact Page](Images/contact.png)
-

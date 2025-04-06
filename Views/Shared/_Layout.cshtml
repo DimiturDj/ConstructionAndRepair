@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -14,12 +14,11 @@
     <link rel="stylesheet" href="~/RepairAndConstruction.styles.css" asp-append-version="true" />
 </head>
 <body class="d-flex flex-column min-vh-100">
-    <!-- Flexbox layout to make the footer stick to bottom -->
+
     <!-- Header -->
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
             <div class="container-fluid">
-                <!-- Logo + Brand -->
                 <a class="navbar-brand d-flex align-items-center gap-2 me-4" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/images/logoforsite.jpg" alt="Logo" width="40" height="40" class="rounded" />
                     <span class="fw-bold text-primary">RepairAndConstruction</span>
@@ -84,6 +83,57 @@
 
     <!-- Main Content -->
     <div class="container mt-4 flex-grow-1">
+
+        <!-- Role-based Panel -->
+        @{
+            var userRole = Context.Session.GetString("Role") ?? "Guest";
+        }
+
+        @if (userRole == "Admin")
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Admin Panel</h3>
+                </div>
+                <div class="panel-body">
+                    <p>Welcome, Admin! Manage users, view reports, and more.</p>
+                    <a href="/Admin/ManageUsers" class="btn btn-primary">Manage Users</a>
+                    <a href="/Admin/Reports" class="btn btn-secondary">View Reports</a>
+                </div>
+            </div>
+        }
+        else if (userRole == "Worker")
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Worker Panel</h3>
+                </div>
+                <div class="panel-body">
+                    <p>Welcome, Worker! View your job offers and check bookings.</p>
+                    <a href="/Workers/ViewJobs" class="btn btn-primary">View Jobs</a>
+                    <a href="/Workers/Bookings" class="btn btn-secondary">My Bookings</a>
+                </div>
+            </div>
+        }
+        else if (userRole == "Customer")
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Customer Panel</h3>
+                </div>
+                <div class="panel-body">
+                    <p>Welcome, Customer! Browse job offers, book services, and leave reviews.</p>
+                    <a href="/JobOffers/Index" class="btn btn-primary">Browse Job Offers</a>
+                    <a href="/Bookings/View" class="btn btn-secondary">My Bookings</a>
+                    <a href="/Reviews/Write" class="btn btn-success">Write a Review</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <p>Please log in to access your panel.</p>
+        }
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

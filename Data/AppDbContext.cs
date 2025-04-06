@@ -63,5 +63,15 @@ public class AppDbContext : DbContext
             new Review { Id = 4, WorkerId = 4, ReviewerName = "Olivia", Rating = 5, Comment = "Highly recommend this painter, very professional." },
             new Review { Id = 5, WorkerId = 5, ReviewerName = "Mark", Rating = 5, Comment = "The wall construction was done perfectly!" }
         );
+
+        // Seed for AppUser (with Id included)
+        modelBuilder.Entity<AppUser>().HasData(
+            new AppUser { Id = 1, Username = "admin", Password = "admin123", Role = "Admin" },
+            new AppUser { Id = 2, Username = "worker1", Password = "worker123", Role = "Worker" }
+        );
     }
+
+
+
 }
+

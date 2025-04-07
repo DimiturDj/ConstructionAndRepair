@@ -1,0 +1,50 @@
+﻿@model RepairAndConstruction.Models.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h1 class="text-danger">Admin Dashboard</h1>
+
+<div class="row mt-4">
+    <div class="col-md-3">
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <h5 class="card-title">Users</h5>
+                <p class="card-text display-6">@Model.TotalUsers</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-success mb-3">
+            <div class="card-body text-success">
+                <h5 class="card-title">Workers</h5>
+                <p class="card-text display-6">@Model.TotalWorkers</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-warning mb-3">
+            <div class="card-body text-warning">
+                <h5 class="card-title">Job Offers</h5>
+                <p class="card-text display-6">@Model.TotalJobOffers</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-danger mb-3">
+            <div class="card-body text-danger">
+                <h5 class="card-title">Bookings</h5>
+                <p class="card-text display-6">@Model.TotalBookings</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-dark mb-3">
+            <div class="card-body text-dark">
+                <h5 class="card-title">Reviews</h5>
+                <p class="card-text display-6">@Model.TotalReviews</p>
+            </div>
+        </div>
+    </div>
+</div>

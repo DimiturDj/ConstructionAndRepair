@@ -18,7 +18,7 @@ namespace RepairAndConstruction.Controllers
         public async Task<IActionResult> Index()
         {
             var jobOffers = await _context.JobOffers
-                .Include(j => j.Worker) // Включваме работника за всяка оферта
+                .Include(j => j.Worker)
                 .ToListAsync();
 
             return View(jobOffers);
@@ -30,7 +30,7 @@ namespace RepairAndConstruction.Controllers
             if (id == null) return NotFound();
 
             var jobOffer = await _context.JobOffers
-                .Include(j => j.Worker) // Включваме работника за офертата
+                .Include(j => j.Worker)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (jobOffer == null) return NotFound();
@@ -41,6 +41,9 @@ namespace RepairAndConstruction.Controllers
         // GET: JobOffers/Create
         public IActionResult Create()
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (role == "Customer") return RedirectToAction("Index", "Home");
+
             ViewData["WorkerId"] = new SelectList(_context.Workers, "Id", "FullName");
             return View();
         }
@@ -50,14 +53,16 @@ namespace RepairAndConstruction.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Description,Price,WorkerId")] JobOffer jobOffer)
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (role == "Customer") return RedirectToAction("Index", "Home");
+
             if (ModelState.IsValid)
             {
-                _context.Add(jobOffer); // Добавяме новата оферта в базата
+                _context.Add(jobOffer);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index)); // След успешно създаване пренасочваме към Index
+                return RedirectToAction(nameof(Index));
             }
 
-            // Ако има грешка при попълване на формата, връщаме на същата форма
             ViewData["WorkerId"] = new SelectList(_context.Workers, "Id", "FullName", jobOffer.WorkerId);
             return View(jobOffer);
         }
@@ -65,12 +70,14 @@ namespace RepairAndConstruction.Controllers
         // GET: JobOffers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (role == "Customer") return RedirectToAction("Index", "Home");
+
             if (id == null) return NotFound();
 
             var jobOffer = await _context.JobOffers.FindAsync(id);
             if (jobOffer == null) return NotFound();
 
-            // Зареждаме работниците за избор в падащото меню
             ViewData["WorkerId"] = new SelectList(_context.Workers, "Id", "FullName", jobOffer.WorkerId);
             return View(jobOffer);
         }
@@ -80,13 +87,16 @@ namespace RepairAndConstruction.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Price,WorkerId")] JobOffer jobOffer)
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (role == "Customer") return RedirectToAction("Index", "Home");
+
             if (id != jobOffer.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(jobOffer); // Обновяваме съществуващата оферта
+                    _context.Update(jobOffer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -94,7 +104,7 @@ namespace RepairAndConstruction.Controllers
                     if (!JobOfferExists(jobOffer.Id)) return NotFound();
                     else throw;
                 }
-                return RedirectToAction(nameof(Index)); // След успешно обновяване пренасочваме към Index
+                return RedirectToAction(nameof(Index));
             }
 
             ViewData["WorkerId"] = new SelectList(_context.Workers, "Id", "FullName", jobOffer.WorkerId);
@@ -104,6 +114,9 @@ namespace RepairAndConstruction.Controllers
         // GET: JobOffers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (role == "Customer") return RedirectToAction("Index", "Home");
+
             if (id == null) return NotFound();
 
             var jobOffer = await _context.JobOffers
@@ -120,15 +133,18 @@ namespace RepairAndConstruction.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (role == "Customer") return RedirectToAction("Index", "Home");
+
             var jobOffer = await _context.JobOffers.FindAsync(id);
-            _context.JobOffers.Remove(jobOffer); // Премахваме офертата от базата
+            _context.JobOffers.Remove(jobOffer);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index)); // След успешно изтриване пренасочваме към Index
+            return RedirectToAction(nameof(Index));
         }
 
         private bool JobOfferExists(int id)
         {
-            return _context.JobOffers.Any(e => e.Id == id); // Проверка дали офертата съществува
+            return _context.JobOffers.Any(e => e.Id == id);
         }
     }
 }

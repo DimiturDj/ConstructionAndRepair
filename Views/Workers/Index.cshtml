@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Workers";
+    var role = Context.Session.GetString("Role") ?? "Guest";
 }
 
 <h1 class="text-center text-primary mb-4">Our Workers</h1>
@@ -16,9 +17,14 @@
                     <p class="card-text">@worker.Profession</p>
                     <p class="text-muted">Location: @worker.Location</p>
                     <p class="text-success">Rating: @worker.Rating</p>
+
                     <a asp-action="Details" asp-route-id="@worker.Id" class="btn btn-info btn-sm">Details</a>
-                    <a asp-action="Edit" asp-route-id="@worker.Id" class="btn btn-warning btn-sm">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@worker.Id" class="btn btn-danger btn-sm">Delete</a>
+
+                    @if (role == "Admin")
+                    {
+                        <a asp-action="Edit" asp-route-id="@worker.Id" class="btn btn-warning btn-sm mx-1">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@worker.Id" class="btn btn-danger btn-sm">Delete</a>
+                    }
                 </div>
             </div>
         </div>

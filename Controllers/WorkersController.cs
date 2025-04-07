@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RepairAndConstruction.Models;
+using RepairAndConstruction.ViewModels;
 
 namespace RepairAndConstruction.Controllers
 {
@@ -33,6 +34,10 @@ namespace RepairAndConstruction.Controllers
         // GET: Workers/Create
         public IActionResult Create()
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (role == "Worker" || role == "Customer")
+                return RedirectToAction("Index", "Home");
+
             return View();
         }
 
@@ -41,6 +46,10 @@ namespace RepairAndConstruction.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,FullName,Profession,Location,Rating")] Worker worker)
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (role == "Worker" || role == "Customer")
+                return RedirectToAction("Index", "Home");
+
             if (ModelState.IsValid)
             {
                 _context.Add(worker);
@@ -53,6 +62,10 @@ namespace RepairAndConstruction.Controllers
         // GET: Workers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (role == "Worker" || role == "Customer")
+                return RedirectToAction("Index", "Home");
+
             if (id == null) return NotFound();
 
             var worker = await _context.Workers.FindAsync(id);
@@ -66,6 +79,10 @@ namespace RepairAndConstruction.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,Profession,Location,Rating")] Worker worker)
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (role == "Worker" || role == "Customer")
+                return RedirectToAction("Index", "Home");
+
             if (id != worker.Id) return NotFound();
 
             if (ModelState.IsValid)
@@ -90,6 +107,10 @@ namespace RepairAndConstruction.Controllers
         // GET: Workers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (role == "Worker" || role == "Customer")
+                return RedirectToAction("Index", "Home");
+
             if (id == null) return NotFound();
 
             var worker = await _context.Workers.FirstOrDefaultAsync(m => m.Id == id);
@@ -103,6 +124,10 @@ namespace RepairAndConstruction.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var role = HttpContext.Session.GetString("Role");
+            if (role == "Worker" || role == "Customer")
+                return RedirectToAction("Index", "Home");
+
             var worker = await _context.Workers.FindAsync(id);
             _context.Workers.Remove(worker);
             await _context.SaveChangesAsync();
@@ -112,6 +137,28 @@ namespace RepairAndConstruction.Controllers
         private bool WorkerExists(int id)
         {
             return _context.Workers.Any(e => e.Id == id);
+        }
+
+        public async Task<IActionResult> Dashboard()
+        {
+            var role = HttpContext.Session.GetString("Role");
+            var username = HttpContext.Session.GetString("Username");
+
+            if (string.IsNullOrEmpty(username) || role != "Worker")
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var totalJobOffers = await _context.JobOffers.CountAsync();
+            var totalBookings = await _context.Bookings.CountAsync();
+
+            var model = new WorkerDashboardViewModel
+            {
+                TotalJobOffers = totalJobOffers,
+                TotalBookings = totalBookings
+            };
+
+            return View(model);
         }
     }
 }

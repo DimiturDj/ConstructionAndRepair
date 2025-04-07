@@ -35,12 +35,23 @@ namespace RepairAndConstruction.Controllers
 
                 // 🔐 Автоматичен вход след регистрация
                 HttpContext.Session.SetString("Username", user.Username);
+                HttpContext.Session.SetString("Role", user.Role);
+
+                // Ако новият потребител е Worker
+                if (user.Role == "Worker")
+                {
+                    var worker = _context.Workers.FirstOrDefault(w => w.FullName == user.Username);
+                    if (worker != null)
+                    {
+                        HttpContext.Session.SetInt32("WorkerId", worker.Id);
+                    }
+                }
+
                 return RedirectToAction("Index", "Home");
             }
 
             return View(user);
         }
-
 
         // GET: /Account/Login
         public IActionResult Login()
@@ -48,7 +59,6 @@ namespace RepairAndConstruction.Controllers
             return View();
         }
 
-        // POST: /Account/Login
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
@@ -56,12 +66,15 @@ namespace RepairAndConstruction.Controllers
             if (user != null)
             {
                 HttpContext.Session.SetString("Username", user.Username);
+                HttpContext.Session.SetString("Role", user.Role);
+
                 return RedirectToAction("Index", "Home");
             }
 
             ViewBag.Error = "Invalid username or password";
             return View();
         }
+
 
         // /Account/Logout
         public IActionResult Logout()

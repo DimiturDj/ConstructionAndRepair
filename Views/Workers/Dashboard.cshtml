@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Worker Dashboard";
+}
+
+<h1 class="text-primary">Worker Dashboard</h1>
+
+<p>Welcome, @Context.Session.GetString("Username")!</p>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card border-primary">
+            <div class="card-body">
+                <h5 class="card-title">Available Job Offers</h5>
+                <p class="card-text">Browse and pick tasks!</p>
+                <a asp-controller="JobOffers" asp-action="Index" class="btn btn-primary">View Job Offers</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mt-3 mt-md-0">
+        <div class="card border-success">
+            <div class="card-body">
+                <h5 class="card-title">My Bookings</h5>
+                <p class="card-text">Check your current work assignments.</p>
+                <a asp-controller="Bookings" asp-action="Index" class="btn btn-success">View Bookings</a>
+            </div>
+        </div>
+    </div>
+</div>
+    

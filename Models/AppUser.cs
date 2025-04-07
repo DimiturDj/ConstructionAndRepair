@@ -1,21 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace RepairAndConstruction.Models
 {
     public class AppUser
     {
-        public int Id { get; set; }
+        
+            public int Id { get; set; } // This is the primary key
+            public string Username { get; set; }
+            public string Password { get; set; }
+            public string Role { get; set; }
+        
 
-        [Required]
-        public string Username { get; set; }
-
-        [Required]
-        public string Password { get; set; }
-
-        [Required]
-        public string Role { get; set; } = string.Empty;
 
     }
 
+ }
 
-}
+

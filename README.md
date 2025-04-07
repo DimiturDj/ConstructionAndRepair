@@ -107,3 +107,32 @@ This project was developed as part of a diploma work for a software engineering 
 ```bash
 git clone https://github.com/DimiturDj/ConstructionAndRepair.git
 cd ConstructionAndRepair
+```
+## 📸 Screenshots
+
+### Homepage
+![Homepage](Roblox/HomePage.png)
+
+### Available Job Offers
+![Job Offers](Images/joboffers.png)
+
+### Our Workers
+![Our Workers](Images/workers.png)
+
+### Available Job Offers Table
+![Job Offers Table](Images/joboffers-table.png)
+
+### Customers
+![Customers](Images/customers.png)
+
+### Bookings
+![Bookings](Images/bookings.png)
+
+### Reviews
+![Reviews](Images/reviews.png)
+
+### About Page
+![About Page](Images/about.png)
+
+### Contact Page
+![Contact Page](Images/contact.png)

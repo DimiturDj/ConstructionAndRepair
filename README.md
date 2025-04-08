@@ -155,3 +155,9 @@ cd ConstructionAndRepair
 ### Contact Page
 ![image](https://github.com/user-attachments/assets/9fb6b551-27ba-4693-853f-9c5e36716925)
 
+### Admin Panel
+![image](https://github.com/user-attachments/assets/29be85a3-7b84-4c92-85b6-6db4f1302ec6)
+### Worker Panel
+![image](https://github.com/user-attachments/assets/da6cc4a2-70cc-44e9-ab65-1603345a6330)
+
+

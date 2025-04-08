@@ -112,16 +112,21 @@ cd ConstructionAndRepair
 
 ### Homepage
 ![image](https://github.com/user-attachments/assets/f1350d45-5df6-4275-afe6-6ba8dbd3af8b)
+![image](https://github.com/user-attachments/assets/abfb94f9-0fb8-4728-8c53-cf3551458b3e)
 
 
 ### Available Job Offers
-![Job Offers](Images/joboffers.png)
+![image](https://github.com/user-attachments/assets/83114e86-6e8f-41bd-99cf-88948df8b987)
+![image](https://github.com/user-attachments/assets/8c748af9-fe41-4df0-8f89-e34fd7b850d9)
+![image](https://github.com/user-attachments/assets/a2b481c2-afc5-412c-aa1e-f9f259ccffff)
+![image](https://github.com/user-attachments/assets/a9de5e1c-dc45-4d47-8a00-0f80b3972866)
+
 
 ### Our Workers
-![Our Workers](Images/workers.png)
+![image](https://github.com/user-attachments/assets/a6348ea8-988e-403f-a31f-12802b92e29e)
+![image](https://github.com/user-attachments/assets/93a44283-bb19-4026-8bb6-a6f4e1e7a927)
+![image](https://github.com/user-attachments/assets/aab8c56d-ed1a-4f92-8247-d3a23bb523dc)
 
-### Available Job Offers Table
-![Job Offers Table](Images/joboffers-table.png)
 
 ### Customers
 ![Customers](Images/customers.png)
@@ -133,7 +138,8 @@ cd ConstructionAndRepair
 ![Reviews](Images/reviews.png)
 
 ### About Page
-![About Page](Images/about.png)
+![image](https://github.com/user-attachments/assets/b153ae28-042f-4ac9-9d99-d5fb1c2d28b2)
 
 ### Contact Page
-![Contact Page](Images/contact.png)
+![image](https://github.com/user-attachments/assets/9fb6b551-27ba-4693-853f-9c5e36716925)
+

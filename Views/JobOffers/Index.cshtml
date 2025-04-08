@@ -3,12 +3,13 @@
 @{
     ViewData["Title"] = "Job Offers";
     var userRole = Context.Session.GetString("Role") ?? "Guest";
+    var fromHome = Context.Request.Query["from"] == "home";
 }
 
 <div class="container mt-4">
     <h1 class="text-center mb-4">Available Job Offers</h1>
 
-    @if (userRole != "Customer")
+    @if (!fromHome && userRole != "Customer")
     {
         <div class="d-flex justify-content-between mb-3">
             <a asp-action="Create" class="btn btn-success btn-lg">Create New Offer</a>
@@ -36,7 +37,7 @@
                     <td>
                         <a asp-action="Details" asp-route-id="@jobOffer.Id" class="btn btn-info btn-sm">Details</a>
 
-                        @if (userRole != "Customer")
+                        @if (!fromHome && userRole != "Customer")
                         {
                             <a asp-action="Edit" asp-route-id="@jobOffer.Id" class="btn btn-warning btn-sm mx-2">Edit</a>
                             <a asp-action="Delete" asp-route-id="@jobOffer.Id" class="btn btn-danger btn-sm">Delete</a>

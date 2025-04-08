@@ -42,32 +42,53 @@ namespace RepairAndConstruction.Controllers
             return View(booking);
         }
 
+     
         // GET: Bookings/Create
         public IActionResult Create()
         {
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "FullName");
+            var username = HttpContext.Session.GetString("Username");
+            var customerId = _context.Customers.FirstOrDefault(c => c.FullName == username)?.Id;
+
+            // Задаваме текущата дата като стойност по подразбиране за BookingDate
+            var booking = new Booking
+            {
+                CustomerId = customerId ?? 0, // Populating with customer ID automatically
+                Status = "Pending", // Automatically setting status to "Pending"
+                BookingDate = DateTime.Now // Set current date by default
+            };
+
             ViewData["JobOfferId"] = new SelectList(_context.JobOffers.Include(j => j.Worker)
-                                                   .ToList()
-                                                   .Select(j => new {
-                                                       j.Id,
-                                                       Text = $"{j.Title} ({j.Worker.FullName})"
-                                                   }), "Id", "Text");
-            return View();
+                                                           .ToList()
+                                                           .Select(j => new {
+                                                               j.Id,
+                                                               Text = $"{j.Title} ({j.Worker.FullName})"
+                                                           }), "Id", "Text");
+
+            return View(booking);
         }
+
 
         // POST: Bookings/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CustomerId,JobOfferId,BookingDate,Status")] Booking booking)
+        public async Task<IActionResult> Create([Bind("CustomerId,JobOfferId,BookingDate,Status")] Booking booking)
         {
-            if (ModelState.IsValid)
+            var username = HttpContext.Session.GetString("Username");
+            var customerId = _context.Customers.FirstOrDefault(c => c.FullName == username)?.Id;
+
+            if (customerId != null)
             {
-                _context.Add(booking);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                booking.CustomerId = (int)customerId;
+                booking.Status = "Pending"; // Set the status automatically
+
+                if (ModelState.IsValid)
+                {
+                    _context.Add(booking);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
 
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "FullName", booking.CustomerId);
             ViewData["JobOfferId"] = new SelectList(_context.JobOffers, "Id", "Title", booking.JobOfferId);
             return View(booking);
         }

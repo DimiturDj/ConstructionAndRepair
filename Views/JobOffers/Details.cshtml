@@ -2,27 +2,35 @@
 
 @{
     ViewData["Title"] = "Job Offer Details";
+    var role = Context.Session.GetString("Role") ?? "Guest";
 }
 
-<div class="container mt-5">
-    <h1 class="display-4 text-center">@Model.Title</h1>
+<h1>Job Offer Details</h1>
 
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Description</h5>
-                    <p>@Model.Description</p>
+<div>
+    <h4>@Model.Title</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Description</dt>
+        <dd class="col-sm-10">@Model.Description</dd>
 
-                    <h5 class="card-title">Price</h5>
-                    <p>@Model.Price лв</p>
+        <dt class="col-sm-2">Price</dt>
+        <dd class="col-sm-10">@Model.Price.ToString("C")</dd>
 
-                    <h5 class="card-title">Worker</h5>
-                    <p>@Model.Worker.FullName</p>
+        <dt class="col-sm-2">Worker</dt>
+        <dd class="col-sm-10">@Model.Worker?.FullName</dd>
+    </dl>
+</div>
 
-                    <a asp-action="Index" class="btn btn-primary">Back to Job Offers</a>
-                </div>
-            </div>
-        </div>
-    </div>
+<div>
+    @if (role == "Customer")
+    {
+        <a asp-action="Create" asp-controller="Bookings" class="btn btn-success">Book Service</a>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to Home Page</a>
+    }
+    else
+    {
+
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to Home Page</a>
+    }
 </div>

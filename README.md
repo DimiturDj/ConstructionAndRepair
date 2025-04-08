@@ -129,13 +129,25 @@ cd ConstructionAndRepair
 
 
 ### Customers
-![Customers](Images/customers.png)
+![image](https://github.com/user-attachments/assets/894b080d-43ce-4e02-88b7-092d47157577)
+![image](https://github.com/user-attachments/assets/2442a4c4-7e02-43cf-8127-1fa6d9ff680a)
+![image](https://github.com/user-attachments/assets/0727dd02-eb1f-4281-8464-20fec245f259)
+![image](https://github.com/user-attachments/assets/4da4b8eb-552a-4148-bbea-b1ec3d0cab17)
+
 
 ### Bookings
-![Bookings](Images/bookings.png)
+![image](https://github.com/user-attachments/assets/5fb4016e-f90b-485a-a380-0585d8f41dcb)
+![image](https://github.com/user-attachments/assets/f0285634-7090-4e73-bb81-a6e5ef359a1f)
+![image](https://github.com/user-attachments/assets/6a05533e-4113-4407-9a60-dd4f9304e685)
+![image](https://github.com/user-attachments/assets/4eb42ec9-4567-46b9-9fbe-478f81f90de7)
+
 
 ### Reviews
-![Reviews](Images/reviews.png)
+![image](https://github.com/user-attachments/assets/08009475-23c3-4a8f-8a12-7928e2752a29)
+![image](https://github.com/user-attachments/assets/ab9096ac-e391-4208-88af-875c5db911a3)
+![image](https://github.com/user-attachments/assets/ca4aa0bb-dd01-45f4-80a5-2a6b07940510)
+![image](https://github.com/user-attachments/assets/0c943558-dcc1-442f-8666-8f5bf8f7fa18)
+
 
 ### About Page
 ![image](https://github.com/user-attachments/assets/b153ae28-042f-4ac9-9d99-d5fb1c2d28b2)

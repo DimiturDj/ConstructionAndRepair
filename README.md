@@ -16,7 +16,7 @@ This project was developed as part of a diploma work for a software engineering 
 - [🧪 Testing & Security](#-testing--security)
 - [🚀 Getting Started](#-getting-started)
 - [📸 Screenshots](#-screenshots)
-- [📄 License](#-license)
+
 
 ---
 

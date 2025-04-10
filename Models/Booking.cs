@@ -15,4 +15,7 @@ public class Booking
     public DateTime BookingDate { get; set; }
 
     public string Status { get; set; } = "Pending";
+
+ 
+
 }

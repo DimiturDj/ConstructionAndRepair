@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace RepairAndConstruction.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250323153443_SeedData")]
-    partial class SeedData
+    [Migration("20250410141252_InitialClean")]
+    partial class InitialClean
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,10 @@ namespace RepairAndConstruction.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -43,6 +47,22 @@ namespace RepairAndConstruction.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Password = "admin123",
+                            Role = "Admin",
+                            Username = "admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Password = "worker123",
+                            Role = "Worker",
+                            Username = "worker1"
+                        });
                 });
 
             modelBuilder.Entity("RepairAndConstruction.Models.Booking", b =>
@@ -78,7 +98,7 @@ namespace RepairAndConstruction.Migrations
                         new
                         {
                             Id = 1,
-                            BookingDate = new DateTime(2025, 3, 23, 17, 34, 42, 732, DateTimeKind.Local).AddTicks(28),
+                            BookingDate = new DateTime(2025, 4, 10, 17, 12, 52, 14, DateTimeKind.Local).AddTicks(599),
                             CustomerId = 1,
                             JobOfferId = 1,
                             Status = "Confirmed"
@@ -86,10 +106,34 @@ namespace RepairAndConstruction.Migrations
                         new
                         {
                             Id = 2,
-                            BookingDate = new DateTime(2025, 3, 24, 17, 34, 42, 732, DateTimeKind.Local).AddTicks(69),
+                            BookingDate = new DateTime(2025, 4, 11, 17, 12, 52, 14, DateTimeKind.Local).AddTicks(640),
                             CustomerId = 2,
                             JobOfferId = 2,
                             Status = "Pending"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BookingDate = new DateTime(2025, 4, 12, 17, 12, 52, 14, DateTimeKind.Local).AddTicks(643),
+                            CustomerId = 3,
+                            JobOfferId = 3,
+                            Status = "Confirmed"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BookingDate = new DateTime(2025, 4, 13, 17, 12, 52, 14, DateTimeKind.Local).AddTicks(645),
+                            CustomerId = 4,
+                            JobOfferId = 4,
+                            Status = "Pending"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BookingDate = new DateTime(2025, 4, 14, 17, 12, 52, 14, DateTimeKind.Local).AddTicks(647),
+                            CustomerId = 1,
+                            JobOfferId = 5,
+                            Status = "Confirmed"
                         });
                 });
 
@@ -131,6 +175,20 @@ namespace RepairAndConstruction.Migrations
                             Email = "sara@email.com",
                             FullName = "Sara Miller",
                             Phone = "0899123456"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Email = "alex@email.com",
+                            FullName = "Alex Green",
+                            Phone = "0876234567"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Email = "olivia@email.com",
+                            FullName = "Olivia Black",
+                            Phone = "0888777888"
                         });
                 });
 
@@ -178,6 +236,30 @@ namespace RepairAndConstruction.Migrations
                             Price = 150m,
                             Title = "Electrical Installation",
                             WorkerId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Fixing roof leaks and damage",
+                            Price = 250m,
+                            Title = "Roof Repair",
+                            WorkerId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Interior and exterior painting services",
+                            Price = 200m,
+                            Title = "Home Painting",
+                            WorkerId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Building new walls or repairing damaged walls",
+                            Price = 300m,
+                            Title = "Wall Construction",
+                            WorkerId = 5
                         });
                 });
 
@@ -225,6 +307,30 @@ namespace RepairAndConstruction.Migrations
                             Rating = 4,
                             ReviewerName = "Sara",
                             WorkerId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Comment = "Did a great job with my roof!",
+                            Rating = 4,
+                            ReviewerName = "Alex",
+                            WorkerId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Comment = "Highly recommend this painter, very professional.",
+                            Rating = 5,
+                            ReviewerName = "Olivia",
+                            WorkerId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Comment = "The wall construction was done perfectly!",
+                            Rating = 5,
+                            ReviewerName = "Mark",
+                            WorkerId = 5
                         });
                 });
 
@@ -279,6 +385,22 @@ namespace RepairAndConstruction.Migrations
                             Location = "Varna",
                             Profession = "Carpenter",
                             Rating = 4.0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FullName = "Emma Brown",
+                            Location = "Burgas",
+                            Profession = "Painter",
+                            Rating = 4.0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FullName = "Liam White",
+                            Location = "Ruse",
+                            Profession = "Mason",
+                            Rating = 5.0
                         });
                 });
 

@@ -95,7 +95,7 @@ namespace RepairAndConstruction.Migrations
                         new
                         {
                             Id = 1,
-                            BookingDate = new DateTime(2025, 4, 7, 23, 2, 17, 274, DateTimeKind.Local).AddTicks(5715),
+                            BookingDate = new DateTime(2025, 4, 10, 17, 12, 52, 14, DateTimeKind.Local).AddTicks(599),
                             CustomerId = 1,
                             JobOfferId = 1,
                             Status = "Confirmed"
@@ -103,7 +103,7 @@ namespace RepairAndConstruction.Migrations
                         new
                         {
                             Id = 2,
-                            BookingDate = new DateTime(2025, 4, 8, 23, 2, 17, 274, DateTimeKind.Local).AddTicks(5751),
+                            BookingDate = new DateTime(2025, 4, 11, 17, 12, 52, 14, DateTimeKind.Local).AddTicks(640),
                             CustomerId = 2,
                             JobOfferId = 2,
                             Status = "Pending"
@@ -111,7 +111,7 @@ namespace RepairAndConstruction.Migrations
                         new
                         {
                             Id = 3,
-                            BookingDate = new DateTime(2025, 4, 9, 23, 2, 17, 274, DateTimeKind.Local).AddTicks(5757),
+                            BookingDate = new DateTime(2025, 4, 12, 17, 12, 52, 14, DateTimeKind.Local).AddTicks(643),
                             CustomerId = 3,
                             JobOfferId = 3,
                             Status = "Confirmed"
@@ -119,7 +119,7 @@ namespace RepairAndConstruction.Migrations
                         new
                         {
                             Id = 4,
-                            BookingDate = new DateTime(2025, 4, 10, 23, 2, 17, 274, DateTimeKind.Local).AddTicks(5759),
+                            BookingDate = new DateTime(2025, 4, 13, 17, 12, 52, 14, DateTimeKind.Local).AddTicks(645),
                             CustomerId = 4,
                             JobOfferId = 4,
                             Status = "Pending"
@@ -127,7 +127,7 @@ namespace RepairAndConstruction.Migrations
                         new
                         {
                             Id = 5,
-                            BookingDate = new DateTime(2025, 4, 11, 23, 2, 17, 274, DateTimeKind.Local).AddTicks(5761),
+                            BookingDate = new DateTime(2025, 4, 14, 17, 12, 52, 14, DateTimeKind.Local).AddTicks(647),
                             CustomerId = 1,
                             JobOfferId = 5,
                             Status = "Confirmed"

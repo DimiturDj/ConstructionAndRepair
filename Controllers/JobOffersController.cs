@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RepairAndConstruction.Models;
@@ -21,7 +20,6 @@ namespace RepairAndConstruction.Controllers
             var jobOffers = await _context.JobOffers
                 .Include(j => j.Worker)
                 .ToListAsync();
-
             return View(jobOffers);
         }
 
@@ -33,7 +31,6 @@ namespace RepairAndConstruction.Controllers
             var jobOffer = await _context.JobOffers
                 .Include(j => j.Worker)
                 .FirstOrDefaultAsync(m => m.Id == id);
-
             if (jobOffer == null) return NotFound();
 
             return View(jobOffer);
@@ -123,7 +120,6 @@ namespace RepairAndConstruction.Controllers
             var jobOffer = await _context.JobOffers
                 .Include(j => j.Worker)
                 .FirstOrDefaultAsync(m => m.Id == id);
-
             if (jobOffer == null) return NotFound();
 
             return View(jobOffer);
@@ -134,12 +130,12 @@ namespace RepairAndConstruction.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var role = HttpContext.Session.GetString("Role");
-            if (role == "Customer") return RedirectToAction("Index", "Home");
-
             var jobOffer = await _context.JobOffers.FindAsync(id);
-            _context.JobOffers.Remove(jobOffer);
-            await _context.SaveChangesAsync();
+            if (jobOffer != null)
+            {
+                _context.JobOffers.Remove(jobOffer);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 

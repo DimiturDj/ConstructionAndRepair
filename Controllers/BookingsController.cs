@@ -42,7 +42,7 @@ namespace RepairAndConstruction.Controllers
             return View(booking);
         }
 
-     
+
         // GET: Bookings/Create
         public IActionResult Create()
         {

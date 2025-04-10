@@ -2,15 +2,16 @@
 
 @{
     ViewData["Title"] = "Job Offer Details";
-    var role = Context.Session.GetString("Role") ?? "Guest";
+    var userRole = Context.Session.GetString("Role") ?? "Guest";
 }
 
 <h1>Job Offer Details</h1>
 
 <div>
-    <h4>@Model.Title</h4>
-    <hr />
     <dl class="row">
+        <dt class="col-sm-2">Title</dt>
+        <dd class="col-sm-10">@Model.Title</dd>
+
         <dt class="col-sm-2">Description</dt>
         <dd class="col-sm-10">@Model.Description</dd>
 
@@ -23,14 +24,10 @@
 </div>
 
 <div>
-    @if (role == "Customer")
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+    @if (userRole != "Customer")
     {
-        <a asp-action="Create" asp-controller="Bookings" class="btn btn-success">Book Service</a>
-        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to Home Page</a>
-    }
-    else
-    {
-
-        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to Home Page</a>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
     }
 </div>

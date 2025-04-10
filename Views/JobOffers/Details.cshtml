@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Job Offer Details";
-    var userRole = Context.Session.GetString("Role") ?? "Guest";
 }
 
 <h1>Job Offer Details</h1>
@@ -24,8 +23,8 @@
 </div>
 
 <div>
-    <a asp-action="Index" class="btn btn-secondary">Back</a>
-    @if (userRole != "Customer")
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    @if (Context.Session.GetString("Role") != "Customer" && Context.Session.GetString("Username") != null)
     {
         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
         <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>

@@ -3,11 +3,12 @@
 @{
     ViewData["Title"] = "Job Offers";
     var userRole = Context.Session.GetString("Role") ?? "Guest";
+    var isLoggedIn = Context.Session.GetString("Username") != null;
 }
 
 <h1 class="text-center mb-4">Available Job Offers</h1>
 
-@if (userRole != "Customer")
+@if (isLoggedIn && userRole != "Customer")
 {
     <a asp-action="Create" class="btn btn-success mb-3">Create New Offer</a>
 }
@@ -32,7 +33,7 @@
                 <td>@offer.Worker?.FullName</td>
                 <td>
                     <a asp-action="Details" asp-route-id="@offer.Id" class="btn btn-info btn-sm">Details</a>
-                    @if (userRole != "Customer")
+                    @if (isLoggedIn && userRole != "Customer")
                     {
                         <a asp-action="Edit" asp-route-id="@offer.Id" class="btn btn-warning btn-sm">Edit</a>
                         <a asp-action="Delete" asp-route-id="@offer.Id" class="btn btn-danger btn-sm">Delete</a>

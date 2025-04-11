@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace RepairAndConstruction.Models
 {
@@ -6,17 +7,12 @@ namespace RepairAndConstruction.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Name is Mandatory")]
+        [Display(Name = "Name and Surname")]
         public string FullName { get; set; }
 
-        [Required, EmailAddress]
-        public string Email { get; set; }
-
-        [Required]
-        public string Phone { get; set; }
-
-
-        public ICollection<Booking> Bookings { get; set; }
+        [ValidateNever]
+        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
     }
 
 }

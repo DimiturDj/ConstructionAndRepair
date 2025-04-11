@@ -40,10 +40,10 @@ public class AppDbContext : DbContext
 
         // Seed for Customers
         modelBuilder.Entity<Customer>().HasData(
-            new Customer { Id = 1, FullName = "Mark Williams", Email = "mark@email.com", Phone = "0888123456" },
-            new Customer { Id = 2, FullName = "Sara Miller", Email = "sara@email.com", Phone = "0899123456" },
-            new Customer { Id = 3, FullName = "Alex Green", Email = "alex@email.com", Phone = "0876234567" },
-            new Customer { Id = 4, FullName = "Olivia Black", Email = "olivia@email.com", Phone = "0888777888" }
+            new Customer { Id = 1, FullName = "Mark Williams" },
+            new Customer { Id = 2, FullName = "Sara Miller"},
+            new Customer { Id = 3, FullName = "Alex Green"},
+            new Customer { Id = 4, FullName = "Olivia Black" }
         );
 
         // Seed for Bookings

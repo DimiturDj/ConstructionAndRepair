@@ -24,7 +24,7 @@
 
 <div>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-    @if (Context.Session.GetString("Role") != "Customer" && Context.Session.GetString("Username") != null)
+    @if (Context.Session.GetString("Role") == "Admin")
     {
         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
         <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>

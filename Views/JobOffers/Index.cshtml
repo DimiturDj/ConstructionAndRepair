@@ -24,22 +24,28 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var offer in Model)
-        {
-            <tr>
-                <td>@offer.Title</td>
-                <td>@offer.Description</td>
-                <td>@offer.Price.ToString("C")</td>
-                <td>@offer.Worker?.FullName</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@offer.Id" class="btn btn-info btn-sm">Details</a>
-                    @if (isLoggedIn && userRole != "Customer")
-                    {
-                        <a asp-action="Edit" asp-route-id="@offer.Id" class="btn btn-warning btn-sm">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@offer.Id" class="btn btn-danger btn-sm">Delete</a>
-                    }
-                </td>
-            </tr>
-        }
+@foreach (var offer in Model)
+{
+        <tr>
+            <td>@offer.Title</td>
+            <td>@offer.Description</td>
+            <td>@offer.Price.ToString("C")</td>
+            <td>@offer.Worker?.FullName</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@offer.Id" class="btn btn-info btn-sm">Details</a>
+
+                @if (isLoggedIn && userRole == "Customer") 
+                {
+                    <a asp-action="CreateBooking" asp-route-jobOfferId="@offer.Id" class="btn btn-primary btn-sm">Book Now</a>
+                }
+
+                @if (isLoggedIn && userRole != "Customer")  
+                {
+                    <a asp-action="Edit" asp-route-id="@offer.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@offer.Id" class="btn btn-danger btn-sm">Delete</a>
+                }
+            </td>
+        </tr>
+}
     </tbody>
 </table>

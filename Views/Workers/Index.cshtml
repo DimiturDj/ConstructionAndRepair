@@ -7,6 +7,13 @@
 
 <h1 class="text-center text-primary mb-4">Our Workers</h1>
 
+@if (role == "Admin")
+{
+    <p>
+        <a asp-action="Create" class="btn btn-success mb-3">Create New Worker</a>
+    </p>
+}
+
 <div class="row">
     @foreach (var worker in Model)
     {

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace RepairAndConstruction.Models
 {
@@ -21,6 +22,7 @@ namespace RepairAndConstruction.Models
         [Display(Name = "Assigned Worker")]
         public int WorkerId { get; set; }
 
+        [ValidateNever]
         public Worker Worker { get; set; }
     }
 }

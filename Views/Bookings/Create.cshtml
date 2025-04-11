@@ -2,19 +2,19 @@
 
 @{
     ViewData["Title"] = "Create Booking";
-    var username = Context.Session.GetString("Username"); // Вземаме потребителското име от сесията
 }
 
 <h1>Create Booking</h1>
 
-<form asp-action="Create">
-    <!-- Автоматично попълване на Customer -->
+<form asp-action="Create" method="post">
+    <!-- Въвеждане на име на клиента -->
     <div class="form-group">
-        <label>Customer</label>
-        <input type="text" class="form-control" value="@username" readonly />
+        <label asp-for="Customer.FullName" class="control-label">Customer</label>
+        <input asp-for="Customer.FullName" class="form-control" />
+        <span asp-validation-for="Customer.FullName" class="text-danger"></span>
     </div>
 
-    <!-- Избор на Job Offer -->
+    <!-- Job Offer -->
     <div class="form-group">
         <label asp-for="JobOfferId" class="control-label">Job Offer</label>
         <select asp-for="JobOfferId" class="form-control" asp-items="ViewBag.JobOfferId">
@@ -23,20 +23,26 @@
         <span asp-validation-for="JobOfferId" class="text-danger"></span>
     </div>
 
-    <!-- Избор на Booking Date -->
+    <!-- Booking Date -->
     <div class="form-group">
         <label asp-for="BookingDate" class="control-label">Booking Date</label>
         <input asp-for="BookingDate" class="form-control" type="date" />
         <span asp-validation-for="BookingDate" class="text-danger"></span>
     </div>
 
-    <!-- Автоматично попълване на Status -->
+    <!-- Status -->
     <div class="form-group">
-        <label>Status</label>
-        <input type="text" class="form-control" value="Pending" readonly />
+        <label asp-for="Status" class="control-label">Status</label>
+        <select asp-for="Status" class="form-control">
+            <option value="">-- Select Status --</option>
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+            <option value="Completed">Completed</option>
+        </select>
+        <span asp-validation-for="Status" class="text-danger"></span>
     </div>
 
-    <!-- Бутони за създаване на booking и връщане към списъка -->
     <button type="submit" class="btn btn-primary mt-2">Create</button>
     <a asp-action="Index" class="btn btn-secondary mt-2">Back</a>
 </form>

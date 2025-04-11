@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RepairAndConstruction.Models;
@@ -42,51 +43,52 @@ namespace RepairAndConstruction.Controllers
             return View(booking);
         }
 
-
         // GET: Bookings/Create
         public IActionResult Create()
         {
-            var username = HttpContext.Session.GetString("Username");
-            var customerId = _context.Customers.FirstOrDefault(c => c.FullName == username)?.Id;
-
-            // Задаваме текущата дата като стойност по подразбиране за BookingDate
-            var booking = new Booking
-            {
-                CustomerId = customerId ?? 0, // Populating with customer ID automatically
-                Status = "Pending", // Automatically setting status to "Pending"
-                BookingDate = DateTime.Now // Set current date by default
-            };
-
             ViewData["JobOfferId"] = new SelectList(_context.JobOffers.Include(j => j.Worker)
-                                                           .ToList()
-                                                           .Select(j => new {
-                                                               j.Id,
-                                                               Text = $"{j.Title} ({j.Worker.FullName})"
-                                                           }), "Id", "Text");
+                .ToList()
+                .Select(j => new
+                {
+                    j.Id,
+                    Text = $"{j.Title} ({j.Worker.FullName})"
+                }), "Id", "Text");
 
-            return View(booking);
+            return View(new Booking
+            {
+                BookingDate = DateTime.Now,
+                Status = "Pending"
+            });
         }
-
 
         // POST: Bookings/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustomerId,JobOfferId,BookingDate,Status")] Booking booking)
+        public async Task<IActionResult> Create(Booking booking)
         {
-            var username = HttpContext.Session.GetString("Username");
-            var customerId = _context.Customers.FirstOrDefault(c => c.FullName == username)?.Id;
+            // Търсим клиента по име
+            var customer = await _context.Customers
+                .FirstOrDefaultAsync(c => c.FullName == booking.Customer.FullName);
 
-            if (customerId != null)
+            if (customer == null)
             {
-                booking.CustomerId = (int)customerId;
-                booking.Status = "Pending"; // Set the status automatically
+                // Създаваме нов клиент, ако не съществува
+                customer = new Customer { FullName = booking.Customer.FullName };
+                _context.Customers.Add(customer);
+                await _context.SaveChangesAsync();
+            }
 
-                if (ModelState.IsValid)
-                {
-                    _context.Add(booking);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
+            booking.CustomerId = customer.Id;
+            booking.Customer = null; // За безопасност
+
+            // Добавяме CustomerId ръчно към ModelState
+            ModelState.SetModelValue(nameof(booking.CustomerId), new ValueProviderResult(booking.CustomerId.ToString()));
+
+            if (ModelState.IsValid)
+            {
+                _context.Bookings.Add(booking);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
 
             ViewData["JobOfferId"] = new SelectList(_context.JobOffers, "Id", "Title", booking.JobOfferId);
@@ -98,7 +100,10 @@ namespace RepairAndConstruction.Controllers
         {
             if (id == null) return NotFound();
 
-            var booking = await _context.Bookings.FindAsync(id);
+            var booking = await _context.Bookings
+                .Include(b => b.Customer)
+                .FirstOrDefaultAsync(b => b.Id == id);
+
             if (booking == null) return NotFound();
 
             ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "FullName", booking.CustomerId);

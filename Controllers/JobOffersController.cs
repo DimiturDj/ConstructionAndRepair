@@ -143,5 +143,53 @@ namespace RepairAndConstruction.Controllers
         {
             return _context.JobOffers.Any(e => e.Id == id);
         }
+
+        // GET: JobOffers/CreateBooking/5
+        public IActionResult CreateBooking(int jobOfferId)
+        {
+            var username = HttpContext.Session.GetString("Username"); // Проверяваме дали има потребител логнат
+
+            // Ако няма потребител логнат, пренасочваме към страницата за логин
+            if (string.IsNullOrEmpty(username))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var jobOffer = _context.JobOffers.FirstOrDefault(j => j.Id == jobOfferId);
+            if (jobOffer == null) return NotFound();
+
+            var booking = new Booking
+            {
+                JobOfferId = jobOfferId,
+                BookingDate = DateTime.Now,
+                Status = "Pending"
+            };
+
+            return View(booking);  // Връщаме изгледа за създаване на резервация
+        }
+
+        // POST: JobOffers/CreateBooking
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateBooking([Bind("JobOfferId,BookingDate,Status")] Booking booking)
+        {
+            var username = HttpContext.Session.GetString("Username");
+            var customer = _context.Customers.FirstOrDefault(c => c.FullName == username);
+
+            // Ако няма логнат потребител, пренасочваме към логин
+            if (customer == null) return RedirectToAction("Login", "Account");
+
+            booking.CustomerId = customer.Id;
+
+            if (ModelState.IsValid)
+            {
+                _context.Bookings.Add(booking); // Записваме резервацията
+                await _context.SaveChangesAsync(); // Записване в базата данни
+                return RedirectToAction("Index", "JobOffers"); // Пренасочване към списъка с оферти
+            }
+
+            return View(booking); // Връщаме формата при грешка
+        }
+
     }
 }

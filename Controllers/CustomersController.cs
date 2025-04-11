@@ -39,7 +39,7 @@ namespace RepairAndConstruction.Controllers
         // POST: Customers/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FullName,Email")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,FullName")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace RepairAndConstruction.Controllers
         // POST: Customers/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,Email")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName")] Customer customer)
         {
             if (id != customer.Id) return NotFound();
 

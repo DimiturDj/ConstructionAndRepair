@@ -62,9 +62,9 @@ This project was developed as part of a diploma work for a software engineering 
 
 ## 📐 Architecture Overview
 
-- **5 Models**: `AppUser`, `Worker`, `Customer`, `JobOffer`, `Booking`, `Review`
-- **5 Controllers**: One for each feature entity
-- **5 Views**: With full Create, Read, Update, Delete functionality
+- **10 Models**: `AppUser`, `Worker`, `Customer`, `JobOffer`, `Booking`, `Review`,`WorkerDashboardViewModel`,`AdminDashboardViewModel`,`LoginModel`,`ErrorViewModel`
+- **9 Controllers**: One for each feature entity
+- **9 Views**: With full Create, Read, Update, Delete functionality
 - **Database**: Code-first with EF Core and `AppDbContext`
 - **Authentication**: Custom login/logout using `HttpContext.Session`
 

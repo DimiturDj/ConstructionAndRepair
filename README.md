@@ -1,26 +1,8 @@
 # 🏗️ ConstructionAndRepair - Web Application for Repair & Construction Services
 
-**ConstructionAndRepair**is a full-featured web application built with ASP.NET Core MVC that allows customers to easily find, explore, and book qualified construction and repair workers based on their specific needs. The system is designed with both user-friendliness and functionality in mind, offering an intuitive interface for customers and a powerful management panel for service providers.
+**ConstructionAndRepair** is a full-featured web application built with ASP.NET Core MVC that allows customers to easily find and book qualified construction and repair workers. The system also enables service providers (workers) to manage their availability and receive reviews from clients.
 
-Customers can browse available job offers, read reviews from previous clients, and make quick and easy bookings through the platform. Each service provider has a public profile displaying their experience, availability, and customer feedback, helping users make informed decisions. Additionally, the system ensures that users only see relevant content based on their roles, offering a clean and personalized experience.
-
-Workers (service providers) can register on the platform, list their services, update their availability, and respond to customer bookings. They also benefit from a built-in review system, allowing them to build trust and grow their reputation over time.
-
-Administrators have full control over the system, including user management, job offer moderation, and access to all booking and review data.
-
-This project was developed as part of a diploma work for a software engineering education program. It strictly follows modern software development practices and design principles, such as separation of concerns, role-based access control, and secure data handling. The project uses cutting-edge technologies and tools including:
-
--.NET 8.0 for high performance and long-term support
-
--Entity Framework Core for ORM and database operations
-
--Razor Pages and Views for dynamic and responsive UI
-
--SQL Server for reliable and scalable data storage
-
--Custom authentication and role management for enhanced security
-
-The final solution aims to be not just a functional system, but a showcase of professional-level development suitable for real-world deployment in the construction and repair services industry.
+This project was developed as part of a diploma work for a software engineering education program. It follows modern software architecture principles and uses technologies such as .NET 8.0, Entity Framework Core, Razor Views, and SQL Server.
 
 ---
 

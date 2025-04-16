@@ -12,7 +12,6 @@ This project was developed as part of a diploma work for a software engineering 
 - [🛠️ Features](#-features)
 - [🧰 Technologies Used](#-technologies-used)
 - [📐 Architecture Overview](#-architecture-overview)
-- [🖥️ Pages and Roles](#-pages-and-roles)
 - [🧪 Testing & Security](#-testing--security)
 - [🚀 Getting Started](#-getting-started)
 - [📸 Screenshots](#-screenshots)

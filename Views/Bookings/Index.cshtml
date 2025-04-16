@@ -4,38 +4,98 @@
     ViewData["Title"] = "Bookings";
 }
 
-<h1>Bookings</h1>
+<h1 class="text-primary fw-bold mb-4">📅 Bookings</h1>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Customer</th>
-            <th>Job Offer</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var booking in Model)
-        {
-            <tr>
-                <td>@booking.Customer?.FullName</td>
-                <td>
-                    @booking.JobOffer?.Title
-                    @if (booking.JobOffer?.Worker != null)
-                    {
-                        <span class="text-muted">(by @booking.JobOffer.Worker.FullName)</span>
-                    }
-                </td>
-                <td>@booking.BookingDate.ToString("yyyy-MM-dd")</td>
-                <td>@booking.Status</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@booking.Id" class="btn btn-info btn-sm">Details</a>
-                    <a asp-action="Edit" asp-route-id="@booking.Id" class="btn btn-warning btn-sm">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@booking.Id" class="btn btn-danger btn-sm">Delete</a>
-                </td>
+<!-- 🔍 Search and Filter -->
+<div class="row mb-3">
+    <div class="col-md-6">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search by customer or job..." />
+    </div>
+    <div class="col-md-3">
+        <select id="statusFilter" class="form-select">
+            <option value="">All Statuses</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Pending">Pending</option>
+            <option value="Rejected">Rejected</option>
+        </select>
+    </div>
+</div>
+
+<!-- 📋 Table -->
+<div class="table-responsive">
+    <table class="table table-hover align-middle shadow-sm rounded-4 overflow-hidden" id="bookingsTable">
+        <thead class="bg-light text-secondary border-bottom">
+            <tr class="fw-semibold">
+                <th>👤 Customer</th>
+                <th>🛠️ Job Offer</th>
+                <th>📅 Date</th>
+                <th>📌 Status</th>
+                <th class="text-center">⚙️ Actions</th>
             </tr>
+        </thead>
+        <tbody class="bg-white">
+            @foreach (var booking in Model)
+            {
+                <tr>
+                    <td>@booking.Customer?.FullName</td>
+                    <td>
+                        <div>
+                            <span class="fw-medium">@booking.JobOffer?.Title</span>
+                            <small class="text-muted d-block">by @booking.JobOffer?.Worker?.FullName</small>
+                        </div>
+                    </td>
+                    <td>@booking.BookingDate.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        <span class="badge rounded-pill px-3 py-2 fs-6 @(
+                            booking.Status == "Confirmed" ? "bg-success" :
+                            booking.Status == "Pending" ? "bg-warning text-dark" :
+                            "bg-danger")">
+                            @booking.Status
+                        </span>
+                    </td>
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center gap-2">
+                            <a asp-action="Details" asp-route-id="@booking.Id" class="btn btn-sm btn-outline-info">
+                                <i class="bi bi-info-circle"></i> Details
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@booking.Id" class="btn btn-sm btn-outline-warning">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@booking.Id" class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- 🔍 Filter Script -->
+@section Scripts {
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const statusFilter = document.getElementById('statusFilter');
+        const tableRows = document.querySelectorAll('#bookingsTable tbody tr');
+
+        function filterTable() {
+            const search = searchInput.value.toLowerCase();
+            const status = statusFilter.value;
+
+            tableRows.forEach(row => {
+                const customer = row.cells[0].textContent.toLowerCase();
+                const job = row.cells[1].textContent.toLowerCase();
+                const stat = row.cells[3].textContent.trim();
+
+                const matchesSearch = customer.includes(search) || job.includes(search);
+                const matchesStatus = !status || stat === status;
+
+                row.style.display = matchesSearch && matchesStatus ? '' : 'none';
+            });
         }
-    </tbody>
-</table>
+
+        searchInput.addEventListener('input', filterTable);
+        statusFilter.addEventListener('change', filterTable);
+    </script>
+}

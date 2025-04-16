@@ -5,32 +5,33 @@
     var role = Context.Session.GetString("Role") ?? "Guest";
 }
 
-<h1 class="text-center text-primary mb-4">Our Workers</h1>
+<h1 class="text-center text-primary mb-5">Our Workers</h1>
 
 @if (role == "Admin")
 {
-    <p>
-        <a asp-action="Create" class="btn btn-success mb-3">Create New Worker</a>
-    </p>
+    <div class="text-end mb-4">
+        <a asp-action="Create" class="btn btn-success">+ Add Worker</a>
+    </div>
 }
 
-<div class="row">
+<div class="row row-cols-1 row-cols-md-3 g-4">
     @foreach (var worker in Model)
     {
-        <div class="col-md-4 mb-3">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">@worker.FullName</h5>
-                    <p class="card-text">@worker.Profession</p>
-                    <p class="text-muted">Location: @worker.Location</p>
-                    <p class="text-success">Rating: @worker.Rating</p>
-
-                    <a asp-action="Details" asp-route-id="@worker.Id" class="btn btn-info btn-sm">Details</a>
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 rounded-4 p-3">
+                <div class="card-body text-center">
+                    <h4 class="fw-bold text-dark">@worker.FullName</h4>
+                    <p class="text-primary mb-1">@worker.Profession</p>
+                    <p class="mb-1"><i class="bi bi-geo-alt-fill text-danger"></i> @worker.Location</p>
+                    <p class="mb-3"><i class="bi bi-star-fill text-warning"></i> Rating: @worker.Rating</p>
+                    <a asp-action="Details" asp-route-id="@worker.Id" class="btn btn-outline-primary rounded-pill w-100">View Profile</a>
 
                     @if (role == "Admin")
                     {
-                        <a asp-action="Edit" asp-route-id="@worker.Id" class="btn btn-warning btn-sm mx-1">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@worker.Id" class="btn btn-danger btn-sm">Delete</a>
+                        <div class="d-flex justify-content-center gap-2 mt-3">
+                            <a asp-action="Edit" asp-route-id="@worker.Id" class="btn btn-warning btn-sm">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@worker.Id" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
                     }
                 </div>
             </div>

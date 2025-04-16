@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RepairAndConstruction.Models;
 
 namespace RepairAndConstruction.Controllers
@@ -20,7 +21,7 @@ namespace RepairAndConstruction.Controllers
 
         // POST: /Account/Register
         [HttpPost]
-        public IActionResult Register(AppUser user)
+        public async Task<IActionResult> Register(AppUser user)
         {
             if (ModelState.IsValid)
             {
@@ -31,21 +32,32 @@ namespace RepairAndConstruction.Controllers
                 }
 
                 _context.AppUsers.Add(user);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
-                // 🔐 Автоматичен вход след регистрация
+                if (user.Role == "Customer")
+                {
+                    var customer = new Customer
+                    {
+                        FullName = user.Username
+                    };
+                    _context.Customers.Add(customer);
+                }
+                else if (user.Role == "Worker")
+                {
+                    var worker = new Worker
+                    {
+                        FullName = user.Username,
+                        Profession = "Not specified",
+                        Location = "Unknown",
+                        Rating = 0
+                    };
+                    _context.Workers.Add(worker);
+                }
+
+                await _context.SaveChangesAsync();
+
                 HttpContext.Session.SetString("Username", user.Username);
                 HttpContext.Session.SetString("Role", user.Role);
-
-                // Ако новият потребител е Worker
-                if (user.Role == "Worker")
-                {
-                    var worker = _context.Workers.FirstOrDefault(w => w.FullName == user.Username);
-                    if (worker != null)
-                    {
-                        HttpContext.Session.SetInt32("WorkerId", worker.Id);
-                    }
-                }
 
                 return RedirectToAction("Index", "Home");
             }
@@ -62,7 +74,9 @@ namespace RepairAndConstruction.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
-            var user = _context.AppUsers.FirstOrDefault(u => u.Username == username && u.Password == password);
+            var user = _context.AppUsers
+                .FirstOrDefault(u => u.Username == username && u.Password == password);
+
             if (user != null)
             {
                 HttpContext.Session.SetString("Username", user.Username);
@@ -75,11 +89,35 @@ namespace RepairAndConstruction.Controllers
             return View();
         }
 
-
-        // /Account/Logout
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
+
+        // ✅ GET: /Account/ForgotPassword
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        // ✅ POST: /Account/ForgotPassword
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(string username, string newPassword)
+        {
+            var user = await _context.AppUsers.FirstOrDefaultAsync(u => u.Username == username);
+
+            if (user == null)
+            {
+                ViewBag.Error = "User not found.";
+                return View();
+            }
+
+            user.Password = newPassword;
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Password changed successfully!";
             return RedirectToAction("Login");
         }
     }

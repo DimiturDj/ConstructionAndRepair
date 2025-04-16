@@ -4,32 +4,62 @@
     ViewData["Title"] = "Customers";
 }
 
-<h1>Customers</h1>
+<h1 class="text-primary fw-bold mb-4">👥 Customers</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Add New Customer</a>
-</p>
+<div class="row mb-3">
+    <div class="col-md-6">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search by name..." />
+    </div>
+    <div class="col-md-6 text-end">
+        <a asp-action="Create" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Add New Customer
+        </a>
+    </div>
+</div>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var customer in Model)
-        {
-            <tr>
-                <td>@customer.FullName</td>
-               
-                <td>
-                    <a asp-action="Details" asp-route-id="@customer.Id" class="btn btn-info btn-sm">Details</a>
-                    <a asp-action="Edit" asp-route-id="@customer.Id" class="btn btn-warning btn-sm">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@customer.Id" class="btn btn-danger btn-sm">Delete</a>
-                </td>
+<div class="table-responsive">
+    <table class="table table-hover align-middle shadow-sm rounded-4 overflow-hidden" id="customersTable">
+        <thead class="bg-light text-secondary border-bottom">
+            <tr class="fw-semibold">
+                <th>👤 Full Name</th>
+                <th class="text-center">⚙️ Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody class="bg-white">
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td class="fw-medium">@customer.FullName</td>
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center gap-2">
+                            <a asp-action="Details" asp-route-id="@customer.Id" class="btn btn-sm btn-outline-info">
+                                <i class="bi bi-info-circle"></i> Details
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@customer.Id" class="btn btn-sm btn-outline-warning">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@customer.Id" class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const rows = document.querySelectorAll('#customersTable tbody tr');
+
+        searchInput.addEventListener('input', () => {
+            const term = searchInput.value.toLowerCase();
+            rows.forEach(row => {
+                const name = row.cells[0].textContent.toLowerCase();
+                row.style.display = name.includes(term) ? '' : 'none';
+            });
+        });
+    </script>
+}

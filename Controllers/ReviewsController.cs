@@ -15,12 +15,23 @@ namespace RepairAndConstruction.Controllers
         }
 
         // GET: Reviews
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search, int? rating)
         {
-            var reviews = await _context.Reviews
+            var reviews = _context.Reviews
                 .Include(r => r.Worker)
-                .ToListAsync();
-            return View(reviews);
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                reviews = reviews.Where(r => r.Comment.Contains(search));
+            }
+
+            if (rating.HasValue)
+            {
+                reviews = reviews.Where(r => r.Rating == rating.Value);
+            }
+
+            return View(await reviews.ToListAsync());
         }
 
         // GET: Reviews/Details/5

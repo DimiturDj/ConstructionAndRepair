@@ -1,0 +1,53 @@
+﻿@model SearchViewModel
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<h2 class="text-primary mb-4">Search Results for "@Model.Query"</h2>
+
+@if (!Model.Workers.Any() && !Model.JobOffers.Any() && !Model.Reviews.Any())
+{
+    <div class="alert alert-warning">No results found.</div>
+}
+else
+{
+    @if (Model.JobOffers.Any())
+    {
+        <h4 class="text-success mt-4">Job Offers</h4>
+        <ul class="list-group mb-4">
+            @foreach (var offer in Model.JobOffers)
+            {
+                <li class="list-group-item">
+                    <strong>@offer.Title</strong> - @offer.Description
+                </li>
+            }
+        </ul>
+    }
+
+    @if (Model.Workers.Any())
+    {
+        <h4 class="text-success mt-4">Workers</h4>
+        <ul class="list-group mb-4">
+            @foreach (var worker in Model.Workers)
+            {
+                <li class="list-group-item">
+                    <strong>@worker.FullName</strong> - @worker.Profession
+                </li>
+            }
+        </ul>
+    }
+
+    @if (Model.Reviews.Any())
+    {
+        <h4 class="text-success mt-4">Reviews</h4>
+        <ul class="list-group mb-4">
+            @foreach (var review in Model.Reviews)
+            {
+                <li class="list-group-item">
+                    <strong>@review.ReviewerName:</strong> @review.Comment
+                </li>
+            }
+        </ul>
+    }
+}

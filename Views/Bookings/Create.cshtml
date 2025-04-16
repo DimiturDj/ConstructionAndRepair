@@ -2,21 +2,21 @@
 
 @{
     ViewData["Title"] = "Create Booking";
+    var username = Context.Session.GetString("Username");
 }
 
 <h1>Create Booking</h1>
 
 <form asp-action="Create" method="post">
-    <!-- Въвеждане на име на клиента -->
-    <div class="form-group">
-        <label asp-for="Customer.FullName" class="control-label">Customer</label>
-        <input asp-for="Customer.FullName" class="form-control" />
-        <span asp-validation-for="Customer.FullName" class="text-danger"></span>
+    <!-- Покажи клиента (readonly) -->
+    <div class="form-group mb-3">
+        <label>Customer</label>
+        <input class="form-control" value="@username" readonly />
     </div>
 
     <!-- Job Offer -->
-    <div class="form-group">
-        <label asp-for="JobOfferId" class="control-label">Job Offer</label>
+    <div class="form-group mb-3">
+        <label asp-for="JobOfferId" class="form-label">Job Offer</label>
         <select asp-for="JobOfferId" class="form-control" asp-items="ViewBag.JobOfferId">
             <option value="">-- Select Job Offer --</option>
         </select>
@@ -24,27 +24,17 @@
     </div>
 
     <!-- Booking Date -->
-    <div class="form-group">
-        <label asp-for="BookingDate" class="control-label">Booking Date</label>
+    <div class="form-group mb-3">
+        <label asp-for="BookingDate" class="form-label">Booking Date</label>
         <input asp-for="BookingDate" class="form-control" type="date" />
         <span asp-validation-for="BookingDate" class="text-danger"></span>
     </div>
 
-    <!-- Status -->
-    <div class="form-group">
-        <label asp-for="Status" class="control-label">Status</label>
-        <select asp-for="Status" class="form-control">
-            <option value="">-- Select Status --</option>
-            <option value="Pending">Pending</option>
-            <option value="Approved">Approved</option>
-            <option value="Rejected">Rejected</option>
-            <option value="Completed">Completed</option>
-        </select>
-        <span asp-validation-for="Status" class="text-danger"></span>
-    </div>
+    <!-- Скрито поле за статус -->
+    <input type="hidden" asp-for="Status" value="Pending" />
 
-    <button type="submit" class="btn btn-primary mt-2">Create</button>
-    <a asp-action="Index" class="btn btn-secondary mt-2">Back</a>
+    <button type="submit" class="btn btn-primary">Book Now</button>
+    <a asp-controller="JobOffers" asp-action="Index" class="btn btn-secondary">Back to Offers</a>
 </form>
 
 @section Scripts {

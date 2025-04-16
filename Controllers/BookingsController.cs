@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RepairAndConstruction.Models;
@@ -35,7 +34,7 @@ namespace RepairAndConstruction.Controllers
             var booking = await _context.Bookings
                 .Include(b => b.Customer)
                 .Include(b => b.JobOffer)
-                .ThenInclude(j => j.Worker)
+                    .ThenInclude(j => j.Worker)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (booking == null) return NotFound();
@@ -44,20 +43,30 @@ namespace RepairAndConstruction.Controllers
         }
 
         // GET: Bookings/Create
-        public IActionResult Create()
+        public IActionResult Create(int? jobOfferId)
         {
-            ViewData["JobOfferId"] = new SelectList(_context.JobOffers.Include(j => j.Worker)
+            var username = HttpContext.Session.GetString("Username");
+            var role = HttpContext.Session.GetString("Role");
+
+            if (string.IsNullOrEmpty(username) || role != "Customer")
+                return RedirectToAction("Login", "Account");
+
+            var offers = _context.JobOffers
+                .Include(j => j.Worker)
                 .ToList()
                 .Select(j => new
                 {
                     j.Id,
                     Text = $"{j.Title} ({j.Worker.FullName})"
-                }), "Id", "Text");
+                });
+
+            ViewData["JobOfferId"] = new SelectList(offers, "Id", "Text", jobOfferId);
 
             return View(new Booking
             {
                 BookingDate = DateTime.Now,
-                Status = "Pending"
+                Status = "Pending",
+                JobOfferId = jobOfferId ?? 0
             });
         }
 
@@ -66,32 +75,46 @@ namespace RepairAndConstruction.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Booking booking)
         {
-            // Търсим клиента по име
+            var username = HttpContext.Session.GetString("Username");
+            var role = HttpContext.Session.GetString("Role");
+
+            if (string.IsNullOrEmpty(username) || role != "Customer")
+                return RedirectToAction("Login", "Account");
+
             var customer = await _context.Customers
-                .FirstOrDefaultAsync(c => c.FullName == booking.Customer.FullName);
+                .FirstOrDefaultAsync(c => c.FullName == username);
 
             if (customer == null)
             {
-                // Създаваме нов клиент, ако не съществува
-                customer = new Customer { FullName = booking.Customer.FullName };
-                _context.Customers.Add(customer);
-                await _context.SaveChangesAsync();
+                ModelState.AddModelError("", "Customer not found.");
             }
-
-            booking.CustomerId = customer.Id;
-            booking.Customer = null; // За безопасност
-
-            // Добавяме CustomerId ръчно към ModelState
-            ModelState.SetModelValue(nameof(booking.CustomerId), new ValueProviderResult(booking.CustomerId.ToString()));
-
-            if (ModelState.IsValid)
+            else
             {
-                _context.Bookings.Add(booking);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                booking.CustomerId = customer.Id;
+                booking.Customer = null;
+                booking.BookingDate = DateTime.Now;
+                booking.Status = "Pending";
+
+                if (ModelState.IsValid)
+                {
+                    _context.Bookings.Add(booking);
+                    await _context.SaveChangesAsync();
+
+                    TempData["SuccessMessage"] = "Booking created successfully!";
+                    return RedirectToAction("Index", "JobOffers");
+                }
             }
 
-            ViewData["JobOfferId"] = new SelectList(_context.JobOffers, "Id", "Title", booking.JobOfferId);
+            var offers = _context.JobOffers
+                .Include(j => j.Worker)
+                .ToList()
+                .Select(j => new
+                {
+                    j.Id,
+                    Text = $"{j.Title} ({j.Worker.FullName})"
+                });
+
+            ViewData["JobOfferId"] = new SelectList(offers, "Id", "Text", booking.JobOfferId);
             return View(booking);
         }
 
@@ -159,8 +182,12 @@ namespace RepairAndConstruction.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var booking = await _context.Bookings.FindAsync(id);
-            _context.Bookings.Remove(booking);
-            await _context.SaveChangesAsync();
+            if (booking != null)
+            {
+                _context.Bookings.Remove(booking);
+                await _context.SaveChangesAsync();
+            }
+
             return RedirectToAction(nameof(Index));
         }
 

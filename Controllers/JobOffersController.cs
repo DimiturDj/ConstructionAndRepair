@@ -30,7 +30,8 @@ namespace RepairAndConstruction.Controllers
 
             var jobOffer = await _context.JobOffers
                 .Include(j => j.Worker)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(j => j.Id == id);
+
             if (jobOffer == null) return NotFound();
 
             return View(jobOffer);
@@ -39,8 +40,8 @@ namespace RepairAndConstruction.Controllers
         // GET: JobOffers/Create
         public IActionResult Create()
         {
-            var role = HttpContext.Session.GetString("Role");
-            if (role == "Customer") return RedirectToAction("Index", "Home");
+            if (HttpContext.Session.GetString("Role") == "Customer")
+                return RedirectToAction("Index", "Home");
 
             ViewData["WorkerId"] = new SelectList(_context.Workers, "Id", "FullName");
             return View();
@@ -51,8 +52,8 @@ namespace RepairAndConstruction.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Description,Price,WorkerId")] JobOffer jobOffer)
         {
-            var role = HttpContext.Session.GetString("Role");
-            if (role == "Customer") return RedirectToAction("Index", "Home");
+            if (HttpContext.Session.GetString("Role") == "Customer")
+                return RedirectToAction("Index", "Home");
 
             if (ModelState.IsValid)
             {
@@ -68,8 +69,8 @@ namespace RepairAndConstruction.Controllers
         // GET: JobOffers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            var role = HttpContext.Session.GetString("Role");
-            if (role == "Customer") return RedirectToAction("Index", "Home");
+            if (HttpContext.Session.GetString("Role") == "Customer")
+                return RedirectToAction("Index", "Home");
 
             if (id == null) return NotFound();
 
@@ -85,8 +86,8 @@ namespace RepairAndConstruction.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Price,WorkerId")] JobOffer jobOffer)
         {
-            var role = HttpContext.Session.GetString("Role");
-            if (role == "Customer") return RedirectToAction("Index", "Home");
+            if (HttpContext.Session.GetString("Role") == "Customer")
+                return RedirectToAction("Index", "Home");
 
             if (id != jobOffer.Id) return NotFound();
 
@@ -99,8 +100,9 @@ namespace RepairAndConstruction.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!JobOfferExists(jobOffer.Id)) return NotFound();
-                    else throw;
+                    if (!_context.JobOffers.Any(e => e.Id == jobOffer.Id))
+                        return NotFound();
+                    throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -112,14 +114,15 @@ namespace RepairAndConstruction.Controllers
         // GET: JobOffers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            var role = HttpContext.Session.GetString("Role");
-            if (role == "Customer") return RedirectToAction("Index", "Home");
+            if (HttpContext.Session.GetString("Role") == "Customer")
+                return RedirectToAction("Index", "Home");
 
             if (id == null) return NotFound();
 
             var jobOffer = await _context.JobOffers
                 .Include(j => j.Worker)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(j => j.Id == id);
+
             if (jobOffer == null) return NotFound();
 
             return View(jobOffer);
@@ -136,60 +139,8 @@ namespace RepairAndConstruction.Controllers
                 _context.JobOffers.Remove(jobOffer);
                 await _context.SaveChangesAsync();
             }
+
             return RedirectToAction(nameof(Index));
         }
-
-        private bool JobOfferExists(int id)
-        {
-            return _context.JobOffers.Any(e => e.Id == id);
-        }
-
-        // GET: JobOffers/CreateBooking/5
-        public IActionResult CreateBooking(int jobOfferId)
-        {
-            var username = HttpContext.Session.GetString("Username"); // Проверяваме дали има потребител логнат
-
-            // Ако няма потребител логнат, пренасочваме към страницата за логин
-            if (string.IsNullOrEmpty(username))
-            {
-                return RedirectToAction("Login", "Account");
-            }
-
-            var jobOffer = _context.JobOffers.FirstOrDefault(j => j.Id == jobOfferId);
-            if (jobOffer == null) return NotFound();
-
-            var booking = new Booking
-            {
-                JobOfferId = jobOfferId,
-                BookingDate = DateTime.Now,
-                Status = "Pending"
-            };
-
-            return View(booking);  // Връщаме изгледа за създаване на резервация
-        }
-
-        // POST: JobOffers/CreateBooking
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateBooking([Bind("JobOfferId,BookingDate,Status")] Booking booking)
-        {
-            var username = HttpContext.Session.GetString("Username");
-            var customer = _context.Customers.FirstOrDefault(c => c.FullName == username);
-
-            // Ако няма логнат потребител, пренасочваме към логин
-            if (customer == null) return RedirectToAction("Login", "Account");
-
-            booking.CustomerId = customer.Id;
-
-            if (ModelState.IsValid)
-            {
-                _context.Bookings.Add(booking); // Записваме резервацията
-                await _context.SaveChangesAsync(); // Записване в базата данни
-                return RedirectToAction("Index", "JobOffers"); // Пренасочване към списъка с оферти
-            }
-
-            return View(booking); // Връщаме формата при грешка
-        }
-
     }
 }

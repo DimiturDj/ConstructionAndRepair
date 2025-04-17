@@ -8,16 +8,19 @@
 <h1>Create Booking</h1>
 
 <form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+
     <!-- Покажи клиента (readonly) -->
     <div class="form-group mb-3">
         <label>Customer</label>
         <input class="form-control" value="@username" readonly />
+
     </div>
 
     <!-- Job Offer -->
     <div class="form-group mb-3">
         <label asp-for="JobOfferId" class="form-label">Job Offer</label>
-        <select asp-for="JobOfferId" class="form-control" asp-items="ViewBag.JobOfferId">
+        <select asp-for="JobOfferId" class="form-control" asp-items="(IEnumerable<SelectListItem>)ViewBag.JobOfferId">
             <option value="">-- Select Job Offer --</option>
         </select>
         <span asp-validation-for="JobOfferId" class="text-danger"></span>
@@ -38,7 +41,5 @@
 </form>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <partial name="_ValidationScriptsPartial" />
 }

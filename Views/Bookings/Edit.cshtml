@@ -21,7 +21,7 @@
         <label asp-for="JobOfferId" class="control-label">Job Offer</label>
         <select asp-for="JobOfferId" class="form-control" asp-items="ViewBag.JobOfferId">
             <option value="">-- Select Job Offer --</option>
-        </select>
+        </select> 
         <span asp-validation-for="JobOfferId" class="text-danger"></span>
     </div>
 
@@ -30,6 +30,13 @@
         <input asp-for="BookingDate" class="form-control" type="date" />
         <span asp-validation-for="BookingDate" class="text-danger"></span>
     </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="CustomerPhone" class="form-label"></label>
+        <input asp-for="CustomerPhone" class="form-control" readonly />
+    </div>
+
+
 
     <div class="form-group">
         <label asp-for="Status" class="control-label">Status</label>

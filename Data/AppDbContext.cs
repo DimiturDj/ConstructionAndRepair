@@ -16,6 +16,11 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder); // Call base method
         SeedData(modelBuilder);  // Seed method
+
+        // Добави само този код:
+        modelBuilder.Entity<Booking>()
+            .Property(b => b.CustomerPhone)
+            .HasDefaultValue("Not provided");
     }
 
     public static void SeedData(ModelBuilder modelBuilder)
@@ -40,10 +45,10 @@ public class AppDbContext : DbContext
 
         // Seed for Customers
         modelBuilder.Entity<Customer>().HasData(
-            new Customer { Id = 1, FullName = "Mark Williams" },
-            new Customer { Id = 2, FullName = "Sara Miller"},
-            new Customer { Id = 3, FullName = "Alex Green"},
-            new Customer { Id = 4, FullName = "Olivia Black" }
+         new Customer { Id = 1, FullName = "Mark Williams" },
+         new Customer { Id = 2, FullName = "Sara Miller" },
+         new Customer { Id = 3, FullName = "Alex Green" },
+         new Customer { Id = 4, FullName = "Olivia Black", }
         );
 
         // Seed for Bookings

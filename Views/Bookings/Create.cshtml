@@ -13,9 +13,16 @@
     <!-- Покажи клиента (readonly) -->
     <div class="form-group mb-3">
         <label>Customer</label>
-       <input class="form-control" value="@username" readonly />
-
+        <input class="form-control" value="@username" readonly />
     </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="CustomerPhone" class="form-label"></label>
+        <input asp-for="CustomerPhone" class="form-control" />
+        <span asp-validation-for="CustomerPhone" class="text-danger"></span>
+    </div>
+
+
 
     <!-- Job Offer -->
     <div class="form-group mb-3">

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace RepairAndConstruction.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250418143938_AddCustomerPhoneNumber")]
+    partial class AddCustomerPhoneNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,7 +104,7 @@ namespace RepairAndConstruction.Migrations
                         new
                         {
                             Id = 1,
-                            BookingDate = new DateTime(2025, 4, 18, 17, 50, 30, 126, DateTimeKind.Local).AddTicks(9312),
+                            BookingDate = new DateTime(2025, 4, 18, 17, 39, 37, 236, DateTimeKind.Local).AddTicks(1588),
                             CustomerId = 1,
                             JobOfferId = 1,
                             Status = "Confirmed"
@@ -109,7 +112,7 @@ namespace RepairAndConstruction.Migrations
                         new
                         {
                             Id = 2,
-                            BookingDate = new DateTime(2025, 4, 19, 17, 50, 30, 126, DateTimeKind.Local).AddTicks(9351),
+                            BookingDate = new DateTime(2025, 4, 19, 17, 39, 37, 236, DateTimeKind.Local).AddTicks(1623),
                             CustomerId = 2,
                             JobOfferId = 2,
                             Status = "Pending"
@@ -117,7 +120,7 @@ namespace RepairAndConstruction.Migrations
                         new
                         {
                             Id = 3,
-                            BookingDate = new DateTime(2025, 4, 20, 17, 50, 30, 126, DateTimeKind.Local).AddTicks(9354),
+                            BookingDate = new DateTime(2025, 4, 20, 17, 39, 37, 236, DateTimeKind.Local).AddTicks(1629),
                             CustomerId = 3,
                             JobOfferId = 3,
                             Status = "Confirmed"
@@ -125,7 +128,7 @@ namespace RepairAndConstruction.Migrations
                         new
                         {
                             Id = 4,
-                            BookingDate = new DateTime(2025, 4, 21, 17, 50, 30, 126, DateTimeKind.Local).AddTicks(9356),
+                            BookingDate = new DateTime(2025, 4, 21, 17, 39, 37, 236, DateTimeKind.Local).AddTicks(1631),
                             CustomerId = 4,
                             JobOfferId = 4,
                             Status = "Pending"
@@ -133,7 +136,7 @@ namespace RepairAndConstruction.Migrations
                         new
                         {
                             Id = 5,
-                            BookingDate = new DateTime(2025, 4, 22, 17, 50, 30, 126, DateTimeKind.Local).AddTicks(9358),
+                            BookingDate = new DateTime(2025, 4, 22, 17, 39, 37, 236, DateTimeKind.Local).AddTicks(1633),
                             CustomerId = 1,
                             JobOfferId = 5,
                             Status = "Confirmed"
@@ -152,10 +155,6 @@ namespace RepairAndConstruction.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
@@ -164,26 +163,22 @@ namespace RepairAndConstruction.Migrations
                         new
                         {
                             Id = 1,
-                            FullName = "Mark Williams",
-                            Phone = "0888123456"
+                            FullName = "Mark Williams"
                         },
                         new
                         {
                             Id = 2,
-                            FullName = "Sara Miller",
-                            Phone = "0888234567"
+                            FullName = "Sara Miller"
                         },
                         new
                         {
                             Id = 3,
-                            FullName = "Alex Green",
-                            Phone = "0888345678"
+                            FullName = "Alex Green"
                         },
                         new
                         {
                             Id = 4,
-                            FullName = "Olivia Black",
-                            Phone = "0888456789"
+                            FullName = "Olivia Black"
                         });
                 });
 

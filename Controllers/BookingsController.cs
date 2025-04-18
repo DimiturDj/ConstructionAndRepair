@@ -34,7 +34,7 @@ namespace RepairAndConstruction.Controllers
             var booking = await _context.Bookings
                 .Include(b => b.Customer)
                 .Include(b => b.JobOffer)
-                    .ThenInclude(j => j.Worker)
+                .ThenInclude(j => j.Worker)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (booking == null) return NotFound();
@@ -81,8 +81,7 @@ namespace RepairAndConstruction.Controllers
             if (string.IsNullOrEmpty(username) || role != "Customer")
                 return RedirectToAction("Login", "Account");
 
-            var customer = await _context.Customers
-                .FirstOrDefaultAsync(c => c.FullName == username);
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.FullName == username);
 
             if (customer == null)
             {
@@ -93,15 +92,15 @@ namespace RepairAndConstruction.Controllers
                 booking.CustomerId = customer.Id;
                 booking.BookingDate = DateTime.Now;
                 booking.Status = "Pending";
-                ModelState.Remove("");
-                if (ModelState.IsValid)
-                {
-                    _context.Bookings.Add(booking);
-                    await _context.SaveChangesAsync();
+            }
 
-                    TempData["SuccessMessage"] = "Booking created successfully!";
-                    return RedirectToAction("Index", "JobOffers");
-                }
+            if (ModelState.IsValid)
+            {
+                _context.Bookings.Add(booking);
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Booking created successfully!";
+                return RedirectToAction("Index", "JobOffers");
             }
 
             var offers = _context.JobOffers
@@ -136,7 +135,7 @@ namespace RepairAndConstruction.Controllers
         // POST: Bookings/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CustomerId,JobOfferId,BookingDate,Status")] Booking booking)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CustomerId,JobOfferId,BookingDate,Status,CustomerPhone")] Booking booking)
         {
             if (id != booking.Id) return NotFound();
 
@@ -194,5 +193,29 @@ namespace RepairAndConstruction.Controllers
         {
             return _context.Bookings.Any(e => e.Id == id);
         }
+
+
+        public async Task<IActionResult> MyBookings()
+        {
+            var username = HttpContext.Session.GetString("Username");
+            var role = HttpContext.Session.GetString("Role");
+
+            if (string.IsNullOrEmpty(username) || role != "Customer")
+                return RedirectToAction("Login", "Account");
+
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.FullName == username);
+            if (customer == null)
+                return NotFound();
+
+            var myBookings = await _context.Bookings
+                .Where(b => b.CustomerId == customer.Id)
+                .Include(b => b.JobOffer)
+                    .ThenInclude(j => j.Worker)
+                .OrderByDescending(b => b.BookingDate)
+                .ToListAsync();
+
+            return View(myBookings);
+        }
+
     }
 }

@@ -13,6 +13,8 @@ namespace RepairAndConstruction.Models
 
         [ValidateNever]
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+        
+
     }
 
 }

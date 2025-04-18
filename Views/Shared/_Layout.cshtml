@@ -32,7 +32,6 @@
                     }
 
                     <ul class="navbar-nav ms-auto">
-
                         @if (!string.IsNullOrEmpty(username))
                         {
                             <li class="nav-item"><a class="nav-link" asp-controller="JobOffers" asp-action="Index">Job Offers</a></li>
@@ -42,6 +41,13 @@
                             {
                                 <li class="nav-item"><a class="nav-link" asp-controller="Customers" asp-action="Index">Customers</a></li>
                                 <li class="nav-item"><a class="nav-link" asp-controller="Bookings" asp-action="Index">Bookings</a></li>
+                            }
+
+                            @if (role == "Customer")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Bookings" asp-action="MyBookings">My Bookings</a>
+                                </li>
                             }
 
                             <li class="nav-item"><a class="nav-link" asp-controller="Reviews" asp-action="Index">Reviews</a></li>
@@ -70,7 +76,6 @@
                     </ul>
 
                     <ul class="navbar-nav ms-auto align-items-center">
-
                         @* 🌐 Global Search for Customers *@
                         @if (role == "Customer")
                         {
@@ -118,7 +123,7 @@
         }
         else if (role == "Customer")
         {
-            <div class="alert alert-success">Welcome, Customer! Browse offers and view reviews.</div>
+            <div class="alert alert-success">Welcome, Customer! Browse offers, view reviews and track your bookings.</div>
         }
 
         <main role="main" class="pb-3">

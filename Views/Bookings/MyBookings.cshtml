@@ -1,0 +1,47 @@
+﻿@model IEnumerable<RepairAndConstruction.Models.Booking>
+
+@{
+    ViewData["Title"] = "My Bookings";
+}
+
+<h2 class="text-primary fw-bold mb-4">My Bookings</h2>
+
+@if (!Model.Any())
+{
+    <p>You haven't made any bookings yet.</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>🛠️ Job Offer</th>
+                    <th>👷 Worker</th>
+                    <th>📅 Date</th>
+                    <th>📞 Phone</th>
+                    <th>📌 Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var booking in Model)
+                {
+                    <tr>
+                        <td>@booking.JobOffer?.Title</td>
+                        <td>@booking.JobOffer?.Worker?.FullName</td>
+                        <td>@booking.BookingDate.ToString("yyyy-MM-dd")</td>
+                        <td>@booking.CustomerPhone</td>
+                        <td>
+                            <span class="badge rounded-pill px-3 py-2 @(
+                                booking.Status == "Confirmed" ? "bg-success" :
+                                booking.Status == "Pending" ? "bg-warning text-dark" :
+                                "bg-danger")">
+                                @booking.Status
+                            </span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

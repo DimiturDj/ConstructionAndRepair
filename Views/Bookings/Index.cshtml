@@ -27,6 +27,7 @@
         <thead class="bg-light text-secondary border-bottom">
             <tr class="fw-semibold">
                 <th>👤 Customer</th>
+                <th>📞 Phone</th>
                 <th>🛠️ Job Offer</th>
                 <th>📅 Date</th>
                 <th>📌 Status</th>
@@ -38,6 +39,7 @@
             {
                 <tr>
                     <td>@booking.Customer?.FullName</td>
+                    <td>@booking.CustomerPhone</td>
                     <td>
                         <div>
                             <span class="fw-medium">@booking.JobOffer?.Title</span>
@@ -85,10 +87,11 @@
 
             tableRows.forEach(row => {
                 const customer = row.cells[0].textContent.toLowerCase();
-                const job = row.cells[1].textContent.toLowerCase();
-                const stat = row.cells[3].textContent.trim();
+                const phone = row.cells[1].textContent.toLowerCase();
+                const job = row.cells[2].textContent.toLowerCase();
+                const stat = row.cells[4].textContent.trim();
 
-                const matchesSearch = customer.includes(search) || job.includes(search);
+                const matchesSearch = customer.includes(search) || job.includes(search) || phone.includes(search);
                 const matchesStatus = !status || stat === status;
 
                 row.style.display = matchesSearch && matchesStatus ? '' : 'none';

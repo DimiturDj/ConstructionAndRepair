@@ -26,14 +26,18 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="BookingDate" class="control-label"></label>
+        <label asp-for="BookingDate" class="control-label">Booking Date</label>
         <input asp-for="BookingDate" class="form-control" type="date" />
         <span asp-validation-for="BookingDate" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Status" class="control-label"></label>
-        <input asp-for="Status" class="form-control" />
+        <label asp-for="Status" class="control-label">Status</label>
+        <select asp-for="Status" class="form-control">
+            <option value="Pending">Pending</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Rejected">Rejected</option>
+        </select>
         <span asp-validation-for="Status" class="text-danger"></span>
     </div>
 
@@ -42,7 +46,5 @@
 </form>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @await Html.PartialAsync("_ValidationScriptsPartial")
 }

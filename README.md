@@ -1,4 +1,4 @@
-# 🏗️ ConstructionAndRepair - Web Application for Repair & Construction Services
+![image](https://github.com/user-attachments/assets/110ca590-c65d-4a35-abad-72c65ecc75ce)# 🏗️ ConstructionAndRepair - Web Application for Repair & Construction Services
 
 **ConstructionAndRepair** is a full-featured web application built with ASP.NET Core MVC that allows customers to easily find and book qualified construction and repair workers. The system also enables service providers (workers) to manage their availability and receive reviews from clients.
 
@@ -90,7 +90,7 @@ This project was developed as part of a diploma work for a software engineering 
 
 ## 🧪 Testing & Security
 
-- ✅ Manual tests on Chrome and Edge browsers
+- ✅ Manual tests on Chrome and Opera browsers
 - ✅ 16 Unit tests covering  business logic 
 - ✅ Form validation on client and server side
 - ✅ Basic protection against SQL injection via EF Core
@@ -140,14 +140,30 @@ cd ConstructionAndRepair
 
 
 
-### Bookings
+### Bookings and customer bookings
 ![image](https://github.com/user-attachments/assets/c86c64b9-0118-455f-9841-4efb763f4d6c)
 ![image](https://github.com/user-attachments/assets/34928f8d-83c8-4678-9dd8-42c05eed77ee)
 ![image](https://github.com/user-attachments/assets/699a8fbd-9db9-4e85-ad0e-d28b3ebfd37b)
 ![image](https://github.com/user-attachments/assets/d3c19e5e-6642-43fe-b29d-e80060edd56f)
+![image](https://github.com/user-attachments/assets/83ea8b2a-6205-47d1-97b1-1c961abfa657)
+![image](https://github.com/user-attachments/assets/c65d21cd-81aa-4d0a-9d5d-438152a0f4b1)
 
 
 ### Reviews
+![image](https://github.com/user-attachments/assets/590ad3f4-cefc-46ba-99bd-c00f5e1e2cf0)
+![image](https://github.com/user-attachments/assets/874124a2-504d-4975-a6d9-4775657b3456)
+![image](https://github.com/user-attachments/assets/8b207c06-c42f-47ba-a565-fe5c5d625824)
+![image](https://github.com/user-attachments/assets/5dadb0d7-6a61-477c-a768-21664b49633f)
+![image](https://github.com/user-attachments/assets/22a39d48-a93e-419b-870d-ea253f422370)
+
+###Login
+![image](https://github.com/user-attachments/assets/d5bea4d0-02d2-43ff-bb8b-6027397ac40e)
+
+###Register
+![image](https://github.com/user-attachments/assets/cf8acf80-0889-4aca-8861-dd0bcbc6d062)
+
+###Forgoten password
+![image](https://github.com/user-attachments/assets/abfe384b-fc49-4694-8beb-97226af5d311)
 
 
 

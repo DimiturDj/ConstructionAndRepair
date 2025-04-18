@@ -114,37 +114,41 @@ cd ConstructionAndRepair
 
 
 ### Available Job Offers
-![image](https://github.com/user-attachments/assets/408c6a86-67d4-47db-ba5d-2105ec194b4c)
-![image](https://github.com/user-attachments/assets/8c748af9-fe41-4df0-8f89-e34fd7b850d9)
-![image](https://github.com/user-attachments/assets/a2b481c2-afc5-412c-aa1e-f9f259ccffff)
-![image](https://github.com/user-attachments/assets/a9de5e1c-dc45-4d47-8a00-0f80b3972866)
+![image](https://github.com/user-attachments/assets/323b2d3d-c26d-4b00-aa1e-186c9524136a)
+![image](https://github.com/user-attachments/assets/f147eb11-84d1-4288-a3d6-fb30cb0bf370)
+![image](https://github.com/user-attachments/assets/5bfaae3f-5acc-471a-8de5-2f2957c2a8da)
+![image](https://github.com/user-attachments/assets/1130b025-4e02-4562-a479-768819b4eb8e)
+![image](https://github.com/user-attachments/assets/5c282e2d-7896-46e4-aee2-1cfee1b5c1d3)
 
 
 ### Our Workers
-![image](https://github.com/user-attachments/assets/00fd98f9-c8ec-4a46-9eee-6ae68489e9f9)
-![image](https://github.com/user-attachments/assets/93a44283-bb19-4026-8bb6-a6f4e1e7a927)
-![image](https://github.com/user-attachments/assets/aab8c56d-ed1a-4f92-8247-d3a23bb523dc)
+![image](https://github.com/user-attachments/assets/3a2a7c82-0c26-42c0-bb3f-d6a09151c891)
+![image](https://github.com/user-attachments/assets/ce122055-f15e-4031-ae62-13ba5ca4c98e)
+![image](https://github.com/user-attachments/assets/d5fe849e-2a54-4117-8644-48bcbdc1e50c)
+![image](https://github.com/user-attachments/assets/a43bc6c2-a773-4691-b0c8-e07c7d1322fe)
+![image](https://github.com/user-attachments/assets/8c034725-7b12-431f-afaf-d09e8cb0504d)
+
+
 
 
 ### Customers
-![image](https://github.com/user-attachments/assets/df063b83-5511-47c7-9212-86f91636c253)
-![image](https://github.com/user-attachments/assets/2442a4c4-7e02-43cf-8127-1fa6d9ff680a)
-![image](https://github.com/user-attachments/assets/0727dd02-eb1f-4281-8464-20fec245f259)
-![image](https://github.com/user-attachments/assets/4da4b8eb-552a-4148-bbea-b1ec3d0cab17)
+![image](https://github.com/user-attachments/assets/f70e25ff-8b11-4392-ac49-73375674162e)
+![image](https://github.com/user-attachments/assets/d2a93cf6-aa85-404b-a622-fa73e48e75eb)
+![image](https://github.com/user-attachments/assets/8bfda588-814f-4830-85d2-0a9de8776d7c)
+![image](https://github.com/user-attachments/assets/4df77072-fcbf-42f3-b551-17770ffb96bf)
+![image](https://github.com/user-attachments/assets/3f56dd8d-66ad-4358-adb5-a5bc5eba07ae)
+
 
 
 ### Bookings
-![image](https://github.com/user-attachments/assets/29807b3c-ec79-4b15-9efc-01e2189067c5)
-![image](https://github.com/user-attachments/assets/f0285634-7090-4e73-bb81-a6e5ef359a1f)
-![image](https://github.com/user-attachments/assets/6a05533e-4113-4407-9a60-dd4f9304e685)
-![image](https://github.com/user-attachments/assets/4eb42ec9-4567-46b9-9fbe-478f81f90de7)
+![image](https://github.com/user-attachments/assets/c86c64b9-0118-455f-9841-4efb763f4d6c)
+![image](https://github.com/user-attachments/assets/34928f8d-83c8-4678-9dd8-42c05eed77ee)
+![image](https://github.com/user-attachments/assets/699a8fbd-9db9-4e85-ad0e-d28b3ebfd37b)
+![image](https://github.com/user-attachments/assets/d3c19e5e-6642-43fe-b29d-e80060edd56f)
 
 
 ### Reviews
-![image](https://github.com/user-attachments/assets/e89aa605-bc62-457f-99a3-1c00ea188059)
-![image](https://github.com/user-attachments/assets/ab9096ac-e391-4208-88af-875c5db911a3)
-![image](https://github.com/user-attachments/assets/ca4aa0bb-dd01-45f4-80a5-2a6b07940510)
-![image](https://github.com/user-attachments/assets/0c943558-dcc1-442f-8666-8f5bf8f7fa18)
+
 
 
 ### About Page

@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/110ca590-c65d-4a35-abad-72c65ecc75ce)# 🏗️ ConstructionAndRepair - Web Application for Repair & Construction Services
+# 🏗️ ConstructionAndRepair - Web Application for Repair & Construction Services
 
 **ConstructionAndRepair** is a full-featured web application built with ASP.NET Core MVC that allows customers to easily find and book qualified construction and repair workers. The system also enables service providers (workers) to manage their availability and receive reviews from clients.
 

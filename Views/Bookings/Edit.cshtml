@@ -4,53 +4,65 @@
     ViewData["Title"] = "Edit Booking";
 }
 
-<h1>Edit Booking</h1>
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-warning text-dark text-center rounded-top-4">
+            <h2 class="mb-0">✏️ Edit Booking</h2>
+        </div>
+        <div class="card-body px-4 py-4">
+            <form asp-action="Edit" method="post" novalidate>
+                <input type="hidden" asp-for="Id" />
 
-<form asp-action="Edit">
-    <input type="hidden" asp-for="Id" />
+                <!-- Customer Selection -->
+                <div class="mb-3">
+                    <label asp-for="CustomerId" class="form-label fw-semibold">Customer</label>
+                    <select asp-for="CustomerId" class="form-control form-control-lg" asp-items="ViewBag.CustomerId">
+                        <option value="">-- Select Customer --</option>
+                    </select>
+                    <span asp-validation-for="CustomerId" class="text-danger"></span>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="CustomerId" class="control-label">Customer</label>
-        <select asp-for="CustomerId" class="form-control" asp-items="ViewBag.CustomerId">
-            <option value="">-- Select Customer --</option>
-        </select>
-        <span asp-validation-for="CustomerId" class="text-danger"></span>
+                <!-- Job Offer Selection -->
+                <div class="mb-3">
+                    <label asp-for="JobOfferId" class="form-label fw-semibold">Job Offer</label>
+                    <select asp-for="JobOfferId" class="form-control form-control-lg" asp-items="ViewBag.JobOfferId">
+                        <option value="">-- Select Job Offer --</option>
+                    </select>
+                    <span asp-validation-for="JobOfferId" class="text-danger"></span>
+                </div>
+
+                <!-- Booking Date -->
+                <div class="mb-3">
+                    <label asp-for="BookingDate" class="form-label fw-semibold">Booking Date</label>
+                    <input asp-for="BookingDate" class="form-control form-control-lg" type="date" />
+                    <span asp-validation-for="BookingDate" class="text-danger"></span>
+                </div>
+
+                <!-- Customer Phone (readonly) -->
+                <div class="mb-3">
+                    <label asp-for="CustomerPhone" class="form-label fw-semibold">Customer Phone</label>
+                    <input asp-for="CustomerPhone" class="form-control form-control-lg" readonly />
+                </div>
+
+                <!-- Status Selection -->
+                <div class="mb-3">
+                    <label asp-for="Status" class="form-label fw-semibold">Status</label>
+                    <select asp-for="Status" class="form-control form-control-lg">
+                        <option value="Pending">Pending</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-lg">← Cancel</a>
+                    <button type="submit" class="btn btn-warning btn-lg">💾 Save Changes</button>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="JobOfferId" class="control-label">Job Offer</label>
-        <select asp-for="JobOfferId" class="form-control" asp-items="ViewBag.JobOfferId">
-            <option value="">-- Select Job Offer --</option>
-        </select> 
-        <span asp-validation-for="JobOfferId" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="BookingDate" class="control-label">Booking Date</label>
-        <input asp-for="BookingDate" class="form-control" type="date" />
-        <span asp-validation-for="BookingDate" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-3">
-        <label asp-for="CustomerPhone" class="form-label"></label>
-        <input asp-for="CustomerPhone" class="form-control" readonly />
-    </div>
-
-
-
-    <div class="form-group">
-        <label asp-for="Status" class="control-label">Status</label>
-        <select asp-for="Status" class="form-control">
-            <option value="Pending">Pending</option>
-            <option value="Confirmed">Confirmed</option>
-            <option value="Rejected">Rejected</option>
-        </select>
-        <span asp-validation-for="Status" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary mt-2">Save</button>
-    <a asp-action="Index" class="btn btn-secondary mt-2">Cancel</a>
-</form>
+</div>
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")

@@ -4,27 +4,30 @@
     ViewData["Title"] = "Review Details";
 }
 
-<h1>Review Details</h1>
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-info text-white text-center rounded-top-4">
+            <h2 class="mb-0">📝 Review Details</h2>
+        </div>
+        <div class="card-body">
+            <h4 class="text-center">Review Information</h4>
+            <hr />
+            <dl class="row fs-5">
+                <dt class="col-sm-3 fw-semibold">👤 Reviewer Name</dt>
+                <dd class="col-sm-9">@Model.ReviewerName</dd>
 
-<div>
-    <h4>Review</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-3">Reviewer Name</dt>
-        <dd class="col-sm-9">@Model.ReviewerName</dd>
+                <dt class="col-sm-3 fw-semibold">🔧 Worker</dt>
+                <dd class="col-sm-9">@Model.Worker?.FullName</dd>
 
-        <dt class="col-sm-3">Worker</dt>
-        <dd class="col-sm-9">@Model.Worker?.FullName</dd>
+                <dt class="col-sm-3 fw-semibold">⭐ Rating</dt>
+                <dd class="col-sm-9">@Model.Rating</dd>
 
-        <dt class="col-sm-3">Rating</dt>
-        <dd class="col-sm-9">@Model.Rating</dd>
-
-        <dt class="col-sm-3">Comment</dt>
-        <dd class="col-sm-9">@Model.Comment</dd>
-    </dl>
-</div>
-
-<div>
-    
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                <dt class="col-sm-3 fw-semibold">💬 Comment</dt>
+                <dd class="col-sm-9">@Model.Comment</dd>
+            </dl>
+        </div>
+        <div class="card-footer text-center">
+            <a asp-action="Index" class="btn btn-outline-secondary btn-lg">← Back to List</a>
+        </div>
+    </div>
 </div>

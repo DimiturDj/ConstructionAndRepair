@@ -4,36 +4,47 @@
     ViewData["Title"] = "Create Job Offer";
 }
 
-<h1>Create Job Offer</h1>
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-success text-white text-center rounded-top-4">
+            <h2 class="mb-0">➕ Create New Job Offer</h2>
+        </div>
+        <div class="card-body px-4 py-4">
+            <form asp-action="Create" method="post" novalidate>
+                <div class="mb-3">
+                    <label asp-for="Title" class="form-label fw-semibold"></label>
+                    <input asp-for="Title" class="form-control form-control-lg" placeholder="Enter job title" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="Title"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label fw-semibold"></label>
+                    <textarea asp-for="Description" class="form-control form-control-lg" rows="4" placeholder="Enter job description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label fw-semibold"></label>
+                    <input asp-for="Price" class="form-control form-control-lg" placeholder="Enter price" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="WorkerId" class="form-label fw-semibold">Select Worker</label>
+                    <select asp-for="WorkerId" class="form-select form-select-lg" asp-items="ViewBag.WorkerId">
+                        <option value="">-- Choose Worker --</option>
+                    </select>
+                    <span asp-validation-for="WorkerId" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-lg">← Back</a>
+                    <button type="submit" class="btn btn-success btn-lg">💾 Create</button>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Price"></label>
-        <input asp-for="Price" class="form-control" />
-        <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="WorkerId">Worker</label>
-        <select asp-for="WorkerId" class="form-control" asp-items="ViewBag.WorkerId"></select>
-        <span asp-validation-for="WorkerId" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary mt-2">Create</button>
-    <a asp-action="Index" class="btn btn-secondary mt-2">Back</a>
-</form>
+</div>
 
 @section Scripts {
     @{

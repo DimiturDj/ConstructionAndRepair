@@ -7,71 +7,73 @@
     var currentSearch = Context.Request.Query["search"];
 }
 
-<h1 class="text-primary fw-bold mb-4">Reviews</h1>
+<div class="container mt-5">
+    <h1 class="text-primary fw-bold mb-4 text-center">Reviews</h1>
 
-@if (role == "Admin" || role == "Customer")
-{
-    <div class="mb-4">
-        <a asp-action="Create" class="btn btn-success">+ Add Review</a>
-    </div>
-}
+    @if (role == "Admin" || role == "Customer")
+    {
+        <div class="mb-4 text-center">
+            <a asp-action="Create" class="btn btn-success btn-lg">+ Add Review</a>
+        </div>
+    }
 
-<!-- 🔍 Filter form -->
-<form method="get" class="row row-cols-1 row-cols-md-3 g-3 mb-4">
-    <div class="col">
-        <input type="text" name="search" value="@currentSearch" class="form-control" placeholder="Search in comment..." />
-    </div>
-    <div class="col">
-        <select name="rating" class="form-select">
-            <option value="">Filter by Rating</option>
-            @for (int i = 1; i <= 5; i++)
-            {
-                <option value="@i" selected="@(currentRating == i.ToString() ? "selected" : null)">
-                    @i Stars
-                </option>
-            }
-        </select>
-    </div>
-    <div class="col">
-        <button type="submit" class="btn btn-outline-primary w-100">Apply Filters</button>
-    </div>
-</form>
+    <!-- 🔍 Filter form -->
+    <form method="get" class="row row-cols-1 row-cols-md-3 g-3 mb-4">
+        <div class="col">
+            <input type="text" name="search" value="@currentSearch" class="form-control form-control-lg" placeholder="Search in comment..." />
+        </div>
+        <div class="col">
+            <select name="rating" class="form-select form-select-lg">
+                <option value="">Filter by Rating</option>
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <option value="@i" selected="@(currentRating == i.ToString() ? "selected" : null)">
+                        @i Stars
+                    </option>
+                }
+            </select>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-outline-primary btn-lg w-100">Apply Filters</button>
+        </div>
+    </form>
 
-<!-- 📋 Table -->
-<div class="table-responsive">
-    <table class="table table-striped table-hover align-middle shadow-sm rounded">
-        <thead class="table-light">
-            <tr>
-                <th>Reviewer</th>
-                <th>Worker</th>
-                <th>Rating</th>
-                <th>Comment</th>
-                <th class="text-center">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var review in Model)
-            {
+    <!-- 📋 Table -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle shadow-sm rounded">
+            <thead class="table-light">
                 <tr>
-                    <td>@review.ReviewerName</td>
-                    <td>@review.Worker?.FullName</td>
-                    <td>
-                        <span class="text-warning fw-bold">
-                            <i class="bi bi-star-fill"></i> @review.Rating
-                        </span>
-                    </td>
-                    <td>@review.Comment</td>
-                    <td class="text-center">
-                        <a asp-action="Details" asp-route-id="@review.Id" class="btn btn-info btn-sm">Details</a>
-
-                        @if (role == "Admin")
-                        {
-                            <a asp-action="Edit" asp-route-id="@review.Id" class="btn btn-warning btn-sm mx-1">Edit</a>
-                            <a asp-action="Delete" asp-route-id="@review.Id" class="btn btn-danger btn-sm">Delete</a>
-                        }
-                    </td>
+                    <th>Reviewer</th>
+                    <th>Worker</th>
+                    <th>Rating</th>
+                    <th>Comment</th>
+                    <th class="text-center">Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var review in Model)
+                {
+                    <tr>
+                        <td>@review.ReviewerName</td>
+                        <td>@review.Worker?.FullName</td>
+                        <td>
+                            <span class="text-warning fw-bold">
+                                <i class="bi bi-star-fill"></i> @review.Rating
+                            </span>
+                        </td>
+                        <td>@review.Comment</td>
+                        <td class="text-center">
+                            <a asp-action="Details" asp-route-id="@review.Id" class="btn btn-info btn-sm">Details</a>
+
+                            @if (role == "Admin")
+                            {
+                                <a asp-action="Edit" asp-route-id="@review.Id" class="btn btn-warning btn-sm mx-1">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@review.Id" class="btn btn-danger btn-sm">Delete</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

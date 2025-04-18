@@ -5,47 +5,55 @@
     var username = Context.Session.GetString("Username");
 }
 
-<h1>Create Booking</h1>
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-success text-white text-center rounded-top-4">
+            <h2 class="mb-0">📅 Create New Booking</h2>
+        </div>
+        <div class="card-body px-4 py-4">
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
 
-<form asp-action="Create" method="post">
-    @Html.AntiForgeryToken()
+                <!-- Покажи клиента (readonly) -->
+                <div class="form-group mb-3">
+                    <label class="form-label">Customer</label>
+                    <input class="form-control form-control-lg" value="@username" readonly />
+                </div>
 
-    <!-- Покажи клиента (readonly) -->
-    <div class="form-group mb-3">
-        <label>Customer</label>
-        <input class="form-control" value="@username" readonly />
+                <!-- Phone Number -->
+                <div class="form-group mb-3">
+                    <label asp-for="CustomerPhone" class="form-label">Phone Number</label>
+                    <input asp-for="CustomerPhone" class="form-control form-control-lg" />
+                    <span asp-validation-for="CustomerPhone" class="text-danger"></span>
+                </div>
+
+                <!-- Job Offer -->
+                <div class="form-group mb-3">
+                    <label asp-for="JobOfferId" class="form-label">Job Offer</label>
+                    <select asp-for="JobOfferId" class="form-control form-control-lg" asp-items="(IEnumerable<SelectListItem>)ViewBag.JobOfferId">
+                        <option value="">-- Select Job Offer --</option>
+                    </select>
+                    <span asp-validation-for="JobOfferId" class="text-danger"></span>
+                </div>
+
+                <!-- Booking Date -->
+                <div class="form-group mb-3">
+                    <label asp-for="BookingDate" class="form-label">Booking Date</label>
+                    <input asp-for="BookingDate" class="form-control form-control-lg" type="date" />
+                    <span asp-validation-for="BookingDate" class="text-danger"></span>
+                </div>
+
+                <!-- Hidden Status Field -->
+                <input type="hidden" asp-for="Status" value="Pending" />
+
+                <div class="d-flex justify-content-between">
+                    <a asp-controller="JobOffers" asp-action="Index" class="btn btn-outline-secondary btn-lg">← Back to Offers</a>
+                    <button type="submit" class="btn btn-success btn-lg">📅 Book Now</button>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <div class="form-group mb-3">
-        <label asp-for="CustomerPhone" class="form-label"></label>
-        <input asp-for="CustomerPhone" class="form-control" />
-        <span asp-validation-for="CustomerPhone" class="text-danger"></span>
-    </div>
-
-
-
-    <!-- Job Offer -->
-    <div class="form-group mb-3">
-        <label asp-for="JobOfferId" class="form-label">Job Offer</label>
-        <select asp-for="JobOfferId" class="form-control" asp-items="(IEnumerable<SelectListItem>)ViewBag.JobOfferId">
-            <option value="">-- Select Job Offer --</option>
-        </select>
-        <span asp-validation-for="JobOfferId" class="text-danger"></span>
-    </div>
-
-    <!-- Booking Date -->
-    <div class="form-group mb-3">
-        <label asp-for="BookingDate" class="form-label">Booking Date</label>
-        <input asp-for="BookingDate" class="form-control" type="date" />
-        <span asp-validation-for="BookingDate" class="text-danger"></span>
-    </div>
-
-    <!-- Скрито поле за статус -->
-    <input type="hidden" asp-for="Status" value="Pending" />
-
-    <button type="submit" class="btn btn-primary">Book Now</button>
-    <a asp-controller="JobOffers" asp-action="Index" class="btn btn-secondary">Back to Offers</a>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

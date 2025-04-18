@@ -4,19 +4,27 @@
     ViewData["Title"] = "Create Customer";
 }
 
-<h1>Create Customer</h1>
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-info text-white text-center rounded-top-4">
+            <h2 class="mb-0">➕ Create New Customer</h2>
+        </div>
+        <div class="card-body px-4 py-4">
+            <form asp-action="Create" method="post" novalidate>
+                <div class="mb-3">
+                    <label asp-for="FullName" class="form-label fw-semibold"></label>
+                    <input asp-for="FullName" class="form-control form-control-lg" placeholder="Enter customer's full name" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
 
-<form asp-action="Create">
-    <div class="form-group">
-        <label asp-for="FullName" class="control-label"></label>
-        <input asp-for="FullName" class="form-control" />
-        <span asp-validation-for="FullName" class="text-danger"></span>
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-lg">← Back</a>
+                    <button type="submit" class="btn btn-info btn-lg">💾 Create</button>
+                </div>
+            </form>
+        </div>
     </div>
-
-
-    <button type="submit" class="btn btn-primary mt-2">Create</button>
-    <a asp-action="Index" class="btn btn-secondary mt-2">Back</a>
-</form>
+</div>
 
 @section Scripts {
     @{

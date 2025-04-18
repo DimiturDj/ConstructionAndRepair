@@ -91,10 +91,9 @@ namespace RepairAndConstruction.Controllers
             else
             {
                 booking.CustomerId = customer.Id;
-                booking.Customer = null;
                 booking.BookingDate = DateTime.Now;
                 booking.Status = "Pending";
-
+                ModelState.Remove("");
                 if (ModelState.IsValid)
                 {
                     _context.Bookings.Add(booking);
